@@ -3,25 +3,34 @@
 import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import Image from "next/image"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+
+// Import the image directly
+import bioImage from "../public/images/deven-portrait.png"
 
 // Base64 encoded green placeholder silhouette
 const placeholderImageBase64 = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMjAwIDIwMCI+CiAgPHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMyMjIiLz4KICA8cGF0aCBkPSJNMTAwLDUwIGE0MCw0MCAwIDEsMCA0MCw0MCBhNDAsNDAgMCAxLDAgLTQwLC00MCBNODMsMTIwIGg3NiBjMCwzMCAtMTgsMzAgLTMwLDMwIGgtNiBjLTEyLDAgLTMwLDAgLTMwLC0zMCBaIiBmaWxsPSIjOGZmZmFhIiBvcGFjaXR5PSIwLjciLz4KPC9zdmc+";
 
 export default function Bio() {
   const [imageError, setImageError] = useState(false);
-  const [imagePath, setImagePath] = useState("/images/deven-portrait.png");
+  const [imagePath, setImagePath] = useState(bioImage?.src || "/images/deven-portrait.png");
+
+  // Alternative paths to try if the primary path fails
+  const altPaths = [
+    "/deven-portrait.png",
+    "/deven-portrait-direct.png",
+    "/images/deven-portrait.png",
+    "/placeholder-user.jpg",
+    placeholderImageBase64
+  ];
+  
+  const [pathIndex, setPathIndex] = useState(0);
 
   const handleImageError = () => {
-    if (imagePath === "/images/deven-portrait.png") {
-      // Try the root path if the images path fails
-      setImagePath("/deven-portrait.png");
-    } else if (imagePath === "/deven-portrait.png") {
-      // Try placeholder if the root path fails
-      setImagePath("/placeholder-user.jpg");
-    } else if (imagePath === "/placeholder-user.jpg") {
-      // Use the base64 image as a final fallback
-      setImagePath(placeholderImageBase64);
+    if (pathIndex < altPaths.length) {
+      // Try the next path
+      setImagePath(altPaths[pathIndex]);
+      setPathIndex(pathIndex + 1);
     } else {
       // If all paths fail, show the fallback text
       setImageError(true);
@@ -103,7 +112,7 @@ export default function Bio() {
                     />
                     <noscript>
                       <img
-                        src="/images/deven-portrait.png"
+                        src={placeholderImageBase64}
                         alt="Deven Spear"
                         style={{ 
                           objectFit: 'cover',
