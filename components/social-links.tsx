@@ -120,7 +120,6 @@ export default function SocialLinks() {
                       style={{ 
                         width: '100%',
                         justifyContent: 'flex-start',
-                        color: 'white',
                         ...link.styles,
                         border: 'none',
                         padding: '0.75rem 1rem',
