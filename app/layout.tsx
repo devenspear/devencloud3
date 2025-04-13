@@ -6,6 +6,10 @@ import { cn } from "@/lib/utils"
 
 const inter = Inter({ subsets: ["latin"] })
 
+export const metadata = {
+  generator: 'v0.dev'
+}
+
 export default function RootLayout({
   children,
 }: {
@@ -25,7 +29,3 @@ export default function RootLayout({
 
 
 import './globals.css'
-
-export const metadata = {
-      generator: 'v0.dev'
-    };
