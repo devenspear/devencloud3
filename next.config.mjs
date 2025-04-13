@@ -1,13 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
-  distDir: 'dist',
   images: {
-    unoptimized: true,
-    domains: ['vercel.app']
-  },
-  basePath: '',
-  assetPrefix: ''
+    unoptimized: true
+  }
 }
 
 export default nextConfig
