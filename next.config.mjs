@@ -1,11 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
-  trailingSlash: true,
+  output: 'export',
+  distDir: 'dist',
   images: {
-    unoptimized: true,
-    domains: ['vercel.app']
-  }
+    unoptimized: true
+  },
+  basePath: '',
+  assetPrefix: ''
 }
 
 export default nextConfig
