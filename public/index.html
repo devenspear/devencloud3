@@ -22,6 +22,7 @@
     .bio-image {
       height: 16rem;
       background-color: #222;
+      position: relative;
     }
     .bio-image img {
       width: 100%;
@@ -50,6 +51,19 @@
         width: 66.666%;
       }
     }
+    .placeholder-image {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: #222;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #8fffaa;
+      font-size: 1.25rem;
+    }
   </style>
 </head>
 <body class="grid-background">
@@ -68,7 +82,14 @@
     <div class="bio-card">
       <div class="bio-content">
         <div class="bio-image">
-          <img src="/images/deven-portrait.png" alt="Deven Spear" onerror="this.parentNode.innerHTML = '<div style=\'height:100%;display:flex;align-items:center;justify-content:center;color:#8fffaa;font-size:1.25rem;\'>Deven Spear</div>'">
+          <picture>
+            <source srcset="/images/deven-portrait.png">
+            <source srcset="/deven-portrait.png">
+            <source srcset="/placeholder-user.jpg">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMjAwIDIwMCI+CiAgPHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMyMjIiLz4KICA8cGF0aCBkPSJNMTAwLDUwIGE0MCw0MCAwIDEsMCA0MCw0MCBhNDAsNDAgMCAxLDAgLTQwLC00MCBNODMsMTIwIGg3NiBjMCwzMCAtMTgsMzAgLTMwLDMwIGgtNiBjLTEyLDAgLTMwLDAgLTMwLC0zMCBaIiBmaWxsPSIjOGZmZmFhIiBvcGFjaXR5PSIwLjciLz4KPC9zdmc+" alt="Deven Spear" 
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="placeholder-image" style="display: none;">Deven Spear</div>
+          </picture>
         </div>
         <div class="bio-text">
           <h2 style="margin-top: 0">About Me</h2>

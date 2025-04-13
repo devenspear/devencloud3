@@ -5,8 +5,28 @@ import { Card, CardContent } from "@/components/ui/card"
 import Image from "next/image"
 import { useState } from "react"
 
+// Base64 encoded green placeholder silhouette
+const placeholderImageBase64 = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMjAwIDIwMCI+CiAgPHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMyMjIiLz4KICA8cGF0aCBkPSJNMTAwLDUwIGE0MCw0MCAwIDEsMCA0MCw0MCBhNDAsNDAgMCAxLDAgLTQwLC00MCBNODMsMTIwIGg3NiBjMCwzMCAtMTgsMzAgLTMwLDMwIGgtNiBjLTEyLDAgLTMwLDAgLTMwLC0zMCBaIiBmaWxsPSIjOGZmZmFhIiBvcGFjaXR5PSIwLjciLz4KPC9zdmc+";
+
 export default function Bio() {
   const [imageError, setImageError] = useState(false);
+  const [imagePath, setImagePath] = useState("/images/deven-portrait.png");
+
+  const handleImageError = () => {
+    if (imagePath === "/images/deven-portrait.png") {
+      // Try the root path if the images path fails
+      setImagePath("/deven-portrait.png");
+    } else if (imagePath === "/deven-portrait.png") {
+      // Try placeholder if the root path fails
+      setImagePath("/placeholder-user.jpg");
+    } else if (imagePath === "/placeholder-user.jpg") {
+      // Use the base64 image as a final fallback
+      setImagePath(placeholderImageBase64);
+    } else {
+      // If all paths fail, show the fallback text
+      setImageError(true);
+    }
+  };
 
   return (
     <motion.section
@@ -48,7 +68,8 @@ export default function Bio() {
                 className="md:w-1/3 relative h-64 md:h-auto"
                 style={{ 
                   position: 'relative',
-                  height: '16rem'
+                  height: '16rem',
+                  backgroundColor: '#222'
                 }}
                 initial={{ x: -50, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
@@ -70,9 +91,9 @@ export default function Bio() {
                 ) : (
                   <>
                     <img
-                      src="/images/deven-portrait.png"
+                      src={imagePath}
                       alt="Deven Spear"
-                      onError={() => setImageError(true)}
+                      onError={handleImageError}
                       style={{ 
                         objectFit: 'cover',
                         height: '100%', 
