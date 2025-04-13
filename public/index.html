@@ -5,6 +5,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>deven.cloud | Personal Hub</title>
   <link rel="stylesheet" href="/css/backup-styles.css">
+  <style>
+    /* Additional styles specific to this HTML */
+    .bio-card {
+      background-color: rgba(17, 17, 17, 0.5);
+      border: 1px solid #333;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+      margin-bottom: 2rem;
+    }
+    .bio-content {
+      display: flex;
+      flex-direction: column;
+    }
+    .bio-image {
+      height: 16rem;
+      background-color: #222;
+    }
+    .bio-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .bio-text {
+      padding: 1.5rem;
+    }
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    @media (min-width: 768px) {
+      .bio-content {
+        flex-direction: row;
+      }
+      .bio-image {
+        width: 33.333%;
+      }
+      .bio-text {
+        width: 66.666%;
+      }
+    }
+  </style>
 </head>
 <body class="grid-background">
   <div class="container mx-auto px-4 py-8">
@@ -19,19 +65,26 @@
       <p>Building at the intersection of innovation and impact</p>
     </header>
 
-    <section>
-      <h2>About Me</h2>
-      <h3>Deven Spear | Visionary Builder of Communities, Companies & Consciousness</h3>
-      <p>I'm a polymath entrepreneur with 30+ years shaping industries across real estate, software, exponential tech, and data-driven marketing. I've launched six companies and hundreds of initiatives—each at the intersection of innovation and impact.</p>
-      <p>My superpower? Seeing around corners. I translate complex ideas—AI, Web3, wellness science—into clear, actionable ventures that connect people, place, and purpose.</p>
-      <p>Whether building master-planned communities, leading tech innovation, or exploring the future of wellness and human potential, I stay driven by one goal:</p>
-      <p>To transform disruption into design—and design into legacy.</p>
-      <p>Let's build something exponential.</p>
-    </section>
+    <div class="bio-card">
+      <div class="bio-content">
+        <div class="bio-image">
+          <img src="/images/deven-portrait.png" alt="Deven Spear" onerror="this.parentNode.innerHTML = '<div style=\'height:100%;display:flex;align-items:center;justify-content:center;color:#8fffaa;font-size:1.25rem;\'>Deven Spear</div>'">
+        </div>
+        <div class="bio-text">
+          <h2 style="margin-top: 0">About Me</h2>
+          <h3>Deven Spear | Visionary Builder of Communities, Companies & Consciousness</h3>
+          <p>I'm a polymath entrepreneur with 30+ years shaping industries across real estate, software, exponential tech, and data-driven marketing. I've launched six companies and hundreds of initiatives—each at the intersection of innovation and impact.</p>
+          <p>My superpower? Seeing around corners. I translate complex ideas—AI, Web3, wellness science—into clear, actionable ventures that connect people, place, and purpose.</p>
+          <p>Whether building master-planned communities, leading tech innovation, or exploring the future of wellness and human potential, I stay driven by one goal:</p>
+          <p>To transform disruption into design—and design into legacy.</p>
+          <p><strong style="color: #8fffaa;">Let's build something exponential.</strong></p>
+        </div>
+      </div>
+    </div>
 
     <section>
       <h2>Connect With Me</h2>
-      <div class="flex">
+      <div class="social-links">
         <a href="#" class="glow">YouTube</a>
         <a href="#" class="glow">Blog</a>
         <a href="#" class="glow">Substack</a>

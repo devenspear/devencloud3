@@ -11,7 +11,8 @@ export default function Hero() {
         padding: '5rem 0',
         textAlign: 'center',
         position: 'relative',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        width: '100%'
       }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -34,13 +35,25 @@ export default function Hero() {
         className="relative z-10"
         style={{
           position: 'relative',
-          zIndex: 10
+          zIndex: 10,
+          margin: '0 auto',
+          width: '100%',
+          maxWidth: '900px'
         }}
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.8 }}
       >
-        <div className="flex justify-center mb-4" style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}>
+        <div 
+          className="flex justify-center mb-4" 
+          style={{ 
+            display: 'flex', 
+            justifyContent: 'center', 
+            alignItems: 'center',
+            marginBottom: '1rem',
+            width: '100%' 
+          }}
+        >
           <Code className="h-16 w-16 text-primary" style={{ height: '4rem', width: '4rem', color: '#8fffaa' }} />
         </div>
 
@@ -51,7 +64,11 @@ export default function Hero() {
             fontWeight: 'bold',
             marginBottom: '1rem',
             color: '#8fffaa',
-            textShadow: '0 0 10px rgba(142, 255, 170, 0.5)'
+            textShadow: '0 0 10px rgba(142, 255, 170, 0.5)',
+            padding: '0 1rem',
+            margin: '0 auto 1rem auto',
+            maxWidth: '100%',
+            textAlign: 'center'
           }}
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -66,7 +83,9 @@ export default function Hero() {
             fontSize: 'clamp(1.25rem, 4vw, 1.5rem)',
             color: '#d1d1d1',
             maxWidth: '42rem',
-            margin: '0 auto'
+            margin: '0 auto',
+            padding: '0 1rem',
+            textAlign: 'center'
           }}
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
