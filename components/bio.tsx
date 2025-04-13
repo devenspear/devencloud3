@@ -43,16 +43,12 @@ export default function Bio() {
           boxShadow: '0 0 15px rgba(0, 0, 0, 0.3)'
         }}>
           <CardContent className="p-0" style={{ padding: 0 }}>
-            <div className="md:flex" style={{ display: 'flex', flexDirection: 'column', '@media (min-width: 768px)': { flexDirection: 'row' } }}>
+            <div className="md:flex" style={{ display: 'flex', flexDirection: 'column' }}>
               <motion.div
                 className="md:w-1/3 relative h-64 md:h-auto"
                 style={{ 
                   position: 'relative',
-                  height: '16rem',
-                  '@media (min-width: 768px)': { 
-                    width: '33.333333%',
-                    height: 'auto'
-                  }
+                  height: '16rem'
                 }}
                 initial={{ x: -50, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
@@ -103,10 +99,7 @@ export default function Bio() {
               <motion.div
                 className="p-6 md:w-2/3"
                 style={{ 
-                  padding: '1.5rem',
-                  '@media (min-width: 768px)': { 
-                    width: '66.666667%'
-                  }
+                  padding: '1.5rem'
                 }}
                 initial={{ x: 50, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}

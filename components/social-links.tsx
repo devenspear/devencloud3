@@ -105,10 +105,7 @@ export default function SocialLinks() {
               style={{ 
                 display: 'grid',
                 gridTemplateColumns: '1fr',
-                gap: '1rem',
-                '@media (min-width: 768px)': {
-                  gridTemplateColumns: 'repeat(2, 1fr)'
-                }
+                gap: '1rem'
               }}
               variants={container}
               initial="hidden"
