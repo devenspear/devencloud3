@@ -1,12 +1,12 @@
-import { FaEnvelope, FaLinkedin, FaTwitter, FaFacebook, FaYoutube, FaIdBadge } from 'react-icons/fa';
+import { FaEnvelope, FaLinkedin, FaTwitter, FaYoutube, FaIdBadge, FaGlobe } from 'react-icons/fa';
 import './App.css';
 
 const links = [
   { href: 'mailto:deven@overabove.com', label: 'Email', icon: <FaEnvelope /> },
   { href: 'https://www.linkedin.com/in/devenspear/', label: 'LinkedIn', icon: <FaLinkedin /> },
   { href: 'https://twitter.com/devenspear', label: 'Twitter/X', icon: <FaTwitter /> },
-  { href: 'https://www.facebook.com/devenspear', label: 'Facebook', icon: <FaFacebook /> },
   { href: 'https://www.youtube.com/@deven_spear/videos', label: 'YouTube', icon: <FaYoutube /> },
+  { href: 'https://futurefast.ai', label: 'FutureFast.ai', icon: <FaGlobe /> },
   { href: 'https://popl.co/card/hnmlBzR1/4/preview', label: 'Popl Card', icon: <FaIdBadge /> },
 ];
 
@@ -35,7 +35,7 @@ function App() {
             aria-label={link.label} 
             className="social-icon"
           >
-            {link.icon}
+            {link.icon} <span>{link.label}</span>
           </a>
         ))}
       </div>
