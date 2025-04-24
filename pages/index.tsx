@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import { FaEnvelope, FaLinkedin, FaTwitter, FaFacebook, FaYoutube, FaIdBadge } from 'react-icons/fa6';
+import { FaEnvelope, FaLinkedin, FaTwitter, FaFacebook, FaYoutube, FaIdBadge } from 'react-icons/fa';
 
 const links = [
   { href: 'mailto:deven@overabove.com', label: 'Email', icon: <FaEnvelope /> },
