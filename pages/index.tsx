@@ -23,7 +23,7 @@ export default function Home() {
       </Head>
       <div className="min-h-screen flex flex-col items-center justify-center bg-slate-900 px-4">
         <Image src="/DevenHead2025.jpg" alt="Deven Spear" width={140} height={140} className="rounded-full border-4 border-cyan-400 shadow-lg mb-4" />
-        <h1 className="font-orbitron text-3xl font-bold text-cyan-300 mb-1 text-center">Deven Spear</h1>
+        <h1 className="text-3xl font-bold text-cyan-300 mb-1 text-center font-[Orbitron,Arial,sans-serif]">Deven Spear</h1>
         <h2 className="text-base font-semibold text-cyan-200 mb-3 text-center">Polymath Entrepreneur & Chief Innovation Officer</h2>
         <p className="text-gray-300 text-center mb-4 text-sm max-w-xs">
           30+ years, 6 startups, real estate, software, tech.<br/>

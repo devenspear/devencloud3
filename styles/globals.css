@@ -1,11 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
 
-html, body {
-  padding: 0;
-  margin: 0;
-  font-family: 'Orbitron', Arial, sans-serif;
-  background: #181e2a;
-}
+/* Remove global font and background. Let Tailwind handle everything. */
 
 body {
   min-height: 100vh;
