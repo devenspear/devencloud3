@@ -21,27 +21,27 @@ export default function Home() {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet" />
       </Head>
-      <main className="min-h-screen bg-gradient-to-br from-[#1d2330] via-[#0f172a] to-[#1d2330] flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
-        <div className="max-w-lg w-full flex flex-col items-center bg-black/70 rounded-3xl shadow-2xl p-8 mt-8 mb-8 md:mt-12 md:mb-12 lg:mt-16 lg:mb-16 xl:mt-20 xl:mb-20">
-          <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-cyan-400 mb-6 shadow-lg md:w-40 md:h-40 lg:w-48 lg:h-48 xl:w-56 xl:h-56">
-            <Image src="/DevenHead2025.jpg" alt="Deven Spear" width={256} height={256} className="object-cover w-full h-full" />
-          </div>
-          <h1 className="font-orbitron text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-center mb-2 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent">Deven Spear</h1>
-          <h2 className="text-lg md:text-xl lg:text-2xl xl:text-3xl text-cyan-300 font-semibold mb-4 text-center">Polymath Entrepreneur & Chief Innovation Officer</h2>
-          <p className="text-gray-300 text-center mb-4 md:text-lg lg:text-xl xl:text-2xl">
-            30+ years, 6 startups, real estate, software, tech. Excels at spotting opportunities and creating solutions. Thought leader in innovative problem-solving across physical and digital realms.
+      <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4">
+        <div className="w-full max-w-md bg-black/80 rounded-2xl shadow-xl flex flex-col items-center p-8">
+          <Image src="/DevenHead2025.jpg" alt="Deven Spear" width={160} height={160} className="rounded-full border-4 border-cyan-400 shadow-lg mb-4" />
+          <h1 className="font-orbitron text-3xl font-bold text-cyan-300 mb-1 text-center">Deven Spear</h1>
+          <h2 className="text-base font-semibold text-cyan-200 mb-3 text-center">Polymath Entrepreneur & Chief Innovation Officer</h2>
+          <p className="text-gray-300 text-center mb-4 text-sm">
+            30+ years, 6 startups, real estate, software, tech.<br/>
+            Excels at spotting opportunities and creating solutions.<br/>
+            Thought leader in innovative problem-solving across physical and digital realms.
           </p>
-          <div className="flex flex-wrap justify-center gap-4 my-4 md:gap-6 lg:gap-8 xl:gap-10">
+          <div className="flex flex-row justify-center gap-4 my-2">
             {links.map(link => (
-              <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" aria-label={link.label} className="text-cyan-300 hover:text-white transition text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
+              <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" aria-label={link.label} className="text-cyan-300 hover:text-white transition text-2xl">
                 {link.icon}
               </a>
             ))}
           </div>
+          <footer className="text-xs text-gray-500 mt-6 text-center w-full">
+            &copy; {new Date().getFullYear()} Deven Spear. All rights reserved.
+          </footer>
         </div>
-        <footer className="text-xs md:text-sm lg:text-base xl:text-lg text-gray-400 mt-auto mb-6 text-center">
-          &copy; {new Date().getFullYear()} Deven Spear. All rights reserved.
-        </footer>
       </main>
     </>
   );
