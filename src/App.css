@@ -1,0 +1,19 @@
+/* Minimal styles for the landing page */
+#root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Social icon hover effects */
+.social-icon {
+  transition: transform 0.2s ease-in-out;
+}
+
+.social-icon:hover {
+  transform: scale(1.2);
+}
