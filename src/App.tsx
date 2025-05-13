@@ -1,16 +1,14 @@
 import { FaLinkedin, FaTwitter, FaYoutube, FaIdBadge, FaGlobe, FaRss } from 'react-icons/fa';
 import './App.css';
-import EmailObfuscator from './components/EmailObfuscator';
 import AnimatedBackground from './components/AnimatedBackground';
 
 const links = [
-  // Email is handled separately with the EmailObfuscator component
+  { href: 'https://popl.co/card/hnmlBzR1/4/preview', label: 'Popl Card', icon: <FaIdBadge /> },
   { href: 'https://www.linkedin.com/in/devenspear/', label: 'LinkedIn', icon: <FaLinkedin /> },
   { href: 'https://twitter.com/devenspear', label: 'Twitter/X', icon: <FaTwitter /> },
   { href: 'https://www.youtube.com/@deven_spear/videos', label: 'YouTube', icon: <FaYoutube /> },
   { href: 'https://futurefast.ai', label: 'FutureFast.ai', icon: <FaGlobe /> },
   { href: 'https://www.deven.blog', label: 'www.deven.blog', icon: <FaRss /> },
-  { href: 'https://popl.co/card/hnmlBzR1/4/preview', label: 'Popl Card', icon: <FaIdBadge /> },
 ];
 
 function App() {
@@ -30,7 +28,6 @@ function App() {
         Thought leader in innovative problem-solving across physical and digital realms.
       </p>
       <div className="social-links">
-        <EmailObfuscator className="social-icon" linkText="Email" />
         {links.map(link => (
           <a 
             key={link.href} 
