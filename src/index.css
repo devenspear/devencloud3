@@ -7,14 +7,18 @@
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%); /* Slate-900 to blue-900 gradient */
+  overflow-x: hidden;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
+  min-width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow-x: hidden;
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
 }
 
 #root {
@@ -23,6 +27,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  overflow: hidden;
+  background: rgba(15, 23, 42, 0.95);
 }
 
 h1 {
@@ -53,7 +60,14 @@ p {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  text-align: center;
   padding: 1rem;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
 }
 
 .profile-img {
@@ -64,12 +78,14 @@ p {
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   margin-bottom: 1rem;
   object-fit: cover;
+  position: relative;
+  z-index: 20; /* Ensure image is on top of animation */
 }
 
 .social-links {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center; /* Center the buttons */
   gap: 0.75rem;
   margin-bottom: 1.5rem;
   width: 100%;

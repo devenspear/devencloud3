@@ -117,6 +117,7 @@ const AnimatedBackground: React.FC = () => {
     <canvas 
       ref={canvasRef} 
       className="animated-background"
+      aria-hidden="true"
     />
   );
 };
