@@ -1,6 +1,15 @@
 // Using CommonJS syntax for better Vercel compatibility
 const sgMail = require('@sendgrid/mail');
 
+// Helper function to parse JSON safely
+const parseBody = (body) => {
+  try {
+    return typeof body === 'string' ? JSON.parse(body) : body;
+  } catch (e) {
+    return body;
+  }
+};
+
 module.exports = async function handler(req, res) {
   // Only allow POST method
   if (req.method !== 'POST') {
@@ -8,8 +17,9 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    // Parse the request body
-    const { name, email, message } = req.body;
+    // Parse the request body - handle both string and object formats
+    const body = parseBody(req.body);
+    const { name, email, message } = body;
 
     // Validate required fields
     if (!name || !email || !message) {

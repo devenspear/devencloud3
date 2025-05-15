@@ -26,17 +26,20 @@ export default function ContactForm() {
     setError(null);
     
     try {
+      // Prepare form data - only include necessary fields
+      const formPayload = {
+        name: formData.name,
+        email: formData.email,
+        message: formData.message
+      };
+      
       // Send form data to the Vercel API endpoint
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          ...formData,
-          // Use a fixed token for development
-          turnstileToken: 'test-token-123',
-        }),
+        body: JSON.stringify(formPayload),
       });
       
       const data = await response.json();
