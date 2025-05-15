@@ -1,6 +1,7 @@
-import sgMail from '@sendgrid/mail';
+// Using CommonJS syntax for better Vercel compatibility
+const sgMail = require('@sendgrid/mail');
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   // Only allow POST method
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
