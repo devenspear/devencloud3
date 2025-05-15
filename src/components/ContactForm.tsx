@@ -45,10 +45,10 @@ export default function ContactForm() {
       const payloadString = JSON.stringify(formPayload);
       debugLog('Stringified Payload', payloadString);
       
-      // Send form data to the new Vercel API endpoint
-      debugLog('Sending Request', { url: '/api/submit', method: 'POST' });
+      // Send form data to the original API endpoint
+      debugLog('Sending Request', { url: '/api/contact', method: 'POST' });
       
-      const response = await fetch('/api/submit', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: debugLog('Request Headers', {
           'Content-Type': 'application/json',
