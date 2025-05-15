@@ -1,6 +1,22 @@
-# React + TypeScript + Vite
+# Deven Spear Personal Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive personal website for Deven Spear built with React, TypeScript, and Vite.
+
+## Features
+
+- Animated background with interactive particles
+- Social media and professional links
+- Contact form with email integration
+- Mobile-responsive design
+- Dark theme with blue accents
+
+## Technology Stack
+
+- React 19
+- TypeScript
+- Vite
+- SendGrid for email
+- Vercel for hosting
 
 Currently, two official plugins are available:
 
