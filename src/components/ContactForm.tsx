@@ -20,10 +20,18 @@ export default function ContactForm() {
     }));
   };
   
+  // Debug helper function
+  const debugLog = (label: string, data: any) => {
+    console.log(`[DEBUG ${label}]:`, data);
+    return data; // For chaining
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError(null);
+    
+    debugLog('Form Submission Started', { formData });
     
     try {
       // Prepare form data - only include necessary fields
@@ -33,22 +41,47 @@ export default function ContactForm() {
         message: formData.message
       };
       
+      debugLog('Form Payload Prepared', formPayload);
+      const payloadString = JSON.stringify(formPayload);
+      debugLog('Stringified Payload', payloadString);
+      
       // Send form data to the Vercel API endpoint
+      debugLog('Sending Request', { url: '/api/contact', method: 'POST' });
+      
       const response = await fetch('/api/contact', {
         method: 'POST',
-        headers: {
+        headers: debugLog('Request Headers', {
           'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formPayload),
+        }),
+        body: payloadString,
       });
       
-      const data = await response.json();
+      debugLog('Response Status', { 
+        status: response.status, 
+        statusText: response.statusText,
+        ok: response.ok,
+        headers: Object.fromEntries([...response.headers.entries()])
+      });
+      
+      const responseText = await response.text();
+      debugLog('Response Text', responseText);
+      
+      let data;
+      try {
+        data = JSON.parse(responseText);
+        debugLog('Parsed Response Data', data);
+      } catch (parseError) {
+        debugLog('JSON Parse Error', { error: parseError, text: responseText });
+        throw new Error(`Failed to parse response: ${responseText}`);
+      }
       
       if (!response.ok) {
+        debugLog('Response Not OK', { status: response.status, data });
         throw new Error(data.error || 'Failed to send message');
       }
       
       // Success
+      debugLog('Form Submission Success', data);
       setIsSubmitted(true);
       setFormData({
         name: '',
@@ -56,9 +89,16 @@ export default function ContactForm() {
         message: ''
       });
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An unexpected error occurred');
+      const errorMessage = err instanceof Error ? err.message : 'An unexpected error occurred';
+      debugLog('Form Submission Error', { 
+        error: err, 
+        message: errorMessage,
+        stack: err instanceof Error ? err.stack : undefined
+      });
+      setError(errorMessage);
     } finally {
       setIsSubmitting(false);
+      debugLog('Form Submission Completed', { isSubmitted, error });
     }
   };
 
