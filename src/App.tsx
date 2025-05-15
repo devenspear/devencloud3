@@ -1,14 +1,47 @@
-import { FaLinkedin, FaTwitter, FaYoutube, FaIdBadge, FaGlobe, FaRss } from 'react-icons/fa';
+import { FaLinkedin, FaTwitter, FaYoutube, FaGlobe, FaRss } from 'react-icons/fa';
 import './App.css';
 import AnimatedBackground from './components/AnimatedBackground';
+import ContactForm from './components/ContactForm';
+
+// Obfuscate URLs to avoid ad blocker detection
+const buildUrl = (parts: string[]) => parts.join('');
 
 const links = [
-  { href: 'https://popl.co/card/hnmlBzR1/4/preview', label: 'Popl Card', icon: <FaIdBadge /> },
-  { href: 'https://www.linkedin.com/in/devenspear/', label: 'LinkedIn', icon: <FaLinkedin /> },
-  { href: 'https://twitter.com/devenspear', label: 'Twitter/X', icon: <FaTwitter /> },
-  { href: 'https://www.youtube.com/@deven_spear/videos', label: 'YouTube', icon: <FaYoutube /> },
-  { href: 'https://futurefast.ai', label: 'FutureFast.ai', icon: <FaGlobe /> },
-  { href: 'https://www.deven.blog', label: 'www.deven.blog', icon: <FaRss /> },
+  { 
+    href: buildUrl(['https://', 'www.linkedin.com', '/in/devenspear/']), 
+    label: 'LinkedIn', 
+    icon: <FaLinkedin /> 
+  },
+  { 
+    href: buildUrl(['https://', 'twitter.com', '/devenspear']), 
+    label: 'Twitter/X', 
+    icon: <FaTwitter /> 
+  },
+  { 
+    href: buildUrl(['https://', 'www.youtube.com', '/@deven_spear/videos']), 
+    label: 'YouTube', 
+    icon: <FaYoutube /> 
+  },
+  { 
+    href: buildUrl(['https://', 'oa3.io']), 
+    label: 'OA3.io', 
+    icon: <FaGlobe /> 
+  },
+  { 
+    href: buildUrl(['https://', 'futurefast.ai']), 
+    label: 'FutureFast.ai', 
+    icon: <FaGlobe /> 
+  },
+  {
+    href: '#', // Ethereum address doesn't have a direct URL
+    label: 'cryptospear.eth', 
+    icon: <FaGlobe />
+  },
+  { 
+    href: buildUrl(['https://', 'www.deven.blog']), 
+    label: 'www.deven.blog', 
+    icon: <FaRss /> 
+  },
 ];
 
 function App() {
@@ -27,7 +60,7 @@ function App() {
         Excels at spotting opportunities and creating solutions.<br/>
         Thought leader in innovative problem-solving across physical and digital realms.
       </p>
-      <div className="social-links">
+      <div className="external-resources">
         {links.map(link => (
           <a 
             key={link.href} 
@@ -35,12 +68,16 @@ function App() {
             target="_blank" 
             rel="noopener noreferrer" 
             aria-label={link.label} 
-            className="social-icon"
+            className="resource-link"
+            data-type="external"
           >
-            {link.icon} <span>{link.label}</span>
+            <span className="resource-icon">{link.icon}</span> <span className="resource-label">{link.label}</span>
           </a>
         ))}
       </div>
+      
+      <ContactForm />
+      
       <footer>
         &copy; {new Date().getFullYear()} Deven Spear. All rights reserved.
       </footer>
