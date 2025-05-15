@@ -26,7 +26,7 @@ export default function ContactForm() {
     setError(null);
     
     try {
-      // Send form data directly to the server
+      // Send form data to the Vercel API endpoint
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
