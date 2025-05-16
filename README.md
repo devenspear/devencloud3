@@ -6,17 +6,28 @@ A modern, responsive personal website for Deven Spear built with React, TypeScri
 
 - Animated background with interactive particles
 - Social media and professional links
-- Contact form with email integration
 - Mobile-responsive design
 - Dark theme with blue accents
+- Contact form with email integration (temporarily disabled)
 
 ## Technology Stack
 
 - React 19
 - TypeScript
 - Vite
-- SendGrid for email
+- SendGrid for email (configuration pending)
 - Vercel for hosting
+
+## Contact Form Status
+
+The contact form is temporarily disabled. To re-enable it:
+
+1. Set up a SendGrid account and obtain an API key
+2. Configure the following environment variables in Vercel:
+   - `SENDGRID_API_KEY`: Your SendGrid API key
+   - `EMAIL_FROM`: The sender email (e.g., contact@devenspear.com) - must be verified in SendGrid
+3. Uncomment the contact form component in `src/App.tsx`
+4. Deploy the updated application
 
 Currently, two official plugins are available:
 

@@ -1,7 +1,8 @@
 import { FaLinkedin, FaTwitter, FaYoutube, FaGlobe, FaRss } from 'react-icons/fa';
 import './App.css';
 import AnimatedBackground from './components/AnimatedBackground';
-import ContactForm from './components/ContactForm';
+// Contact form temporarily disabled
+// import ContactForm from './components/ContactForm';
 
 // Obfuscate URLs to avoid ad blocker detection
 const buildUrl = (parts: string[]) => parts.join('');
@@ -76,7 +77,9 @@ function App() {
         ))}
       </div>
       
+      {/* Contact form temporarily disabled
       <ContactForm />
+      */}
       
       <footer>
         &copy; {new Date().getFullYear()} Deven Spear. All rights reserved.
