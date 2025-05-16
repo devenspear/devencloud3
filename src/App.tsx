@@ -23,18 +23,19 @@ const links = [
     label: 'YouTube', 
     icon: <FaYoutube /> 
   },
-  { 
-    href: buildUrl(['https://', 'oa3.io']), 
-    label: 'OA3.io', 
-    icon: <FaGlobe /> 
-  },
+  // OA3.io link temporarily hidden
+  // { 
+  //   href: buildUrl(['https://', 'oa3.io']), 
+  //   label: 'OA3.io', 
+  //   icon: <FaGlobe /> 
+  // },
   { 
     href: buildUrl(['https://', 'futurefast.ai']), 
     label: 'FutureFast.ai', 
     icon: <FaGlobe /> 
   },
   {
-    href: '#', // Ethereum address doesn't have a direct URL
+    href: buildUrl(['https://', 'etherscan.io/name-lookup-search?id=cryptospear.eth']),
     label: 'cryptospear.eth', 
     icon: <FaGlobe />
   },
