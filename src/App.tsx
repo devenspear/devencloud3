@@ -57,9 +57,7 @@ function App() {
       <h1>Deven Spear</h1>
       <h2>Polymath Entrepreneur & Chief Innovation Officer</h2>
       <p>
-        30+ years, 6 startups, real estate, software, tech.<br/>
-        Excels at spotting opportunities and creating solutions.<br/>
-        Thought leader in innovative problem-solving across physical and digital realms.
+        30+ years, 6 startups, real estate, software, tech. Excels at spotting opportunities and creating solutions. Thought leader in innovative problem-solving across physical and digital realms.
       </p>
       <div className="external-resources">
         {links.map(link => (
