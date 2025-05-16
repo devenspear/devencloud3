@@ -44,7 +44,7 @@
 .profile-img {
   width: 150px;
   height: 150px;
-  border-radius: 50%;
+  border-radius: 0; /* Changed from 50% to 0 for square corners */
   object-fit: cover;
   border: 3px solid rgba(100, 100, 255, 0.5);
   margin-bottom: 1rem;

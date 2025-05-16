@@ -51,7 +51,7 @@ function App() {
     <div className="container">
       <AnimatedBackground />
       <img 
-        src="/DevenHead2025.jpg" 
+        src="/DevenHeadshot_Blue.jpg" 
         alt="Deven Spear" 
         className="profile-img"
       />
