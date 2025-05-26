@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react'
 
 interface ContactFormProps {
-  className?: string
   onSuccess?: () => void
   onError?: (error: string) => void
 }
@@ -32,7 +31,6 @@ declare global {
 }
 
 export default function DevenCloud3ContactForm({ 
-  className = '', 
   onSuccess,
   onError 
 }: ContactFormProps) {
@@ -149,17 +147,6 @@ export default function DevenCloud3ContactForm({
       setIsSubmitting(false)
     }
   }
-
-  const inquiryOptions = [
-    { value: '', label: 'Select inquiry type...' },
-    { value: 'freelance-project', label: 'Freelance Project' },
-    { value: 'full-time-opportunity', label: 'Full-time Opportunity' },
-    { value: 'consulting', label: 'Consulting' },
-    { value: 'collaboration', label: 'Collaboration' },
-    { value: 'speaking', label: 'Speaking Engagement' },
-    { value: 'networking', label: 'Networking' },
-    { value: 'other', label: 'Other' }
-  ]
 
   return (
     <div style={{ 
