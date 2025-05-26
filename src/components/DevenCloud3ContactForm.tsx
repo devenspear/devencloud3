@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 interface ContactFormProps {
   onSuccess?: () => void
@@ -52,23 +52,32 @@ export default function DevenCloud3ContactForm({
   const [message, setMessage] = useState<FormMessage | null>(null)
   const [turnstileToken, setTurnstileToken] = useState<string>('')
   const [turnstileWidgetId, setTurnstileWidgetId] = useState<string>('')
+  const turnstileRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    // Initialize Turnstile when component mounts
-    if (window.turnstile) {
-      const widgetId = window.turnstile.render('.cf-turnstile', {
-        sitekey: '0x4AAAAAAAIKHgKNWkpW6FPg',
-        callback: (token: string) => {
-          setTurnstileToken(token)
-        },
-        'expired-callback': () => {
-          setTurnstileToken('')
-        },
-        'error-callback': () => {
-          setTurnstileToken('')
-        }
-      })
-      setTurnstileWidgetId(widgetId)
+    let interval: NodeJS.Timeout | null = null
+    function renderTurnstile() {
+      if (window.turnstile && turnstileRef.current) {
+        const widgetId = window.turnstile.render(turnstileRef.current, {
+          sitekey: '0x4AAAAAAAIKHgKNWkpW6FPg',
+          callback: (token: string) => {
+            setTurnstileToken(token)
+          },
+          'expired-callback': () => {
+            setTurnstileToken('')
+          },
+          'error-callback': () => {
+            setTurnstileToken('')
+          }
+        })
+        setTurnstileWidgetId(widgetId)
+        if (interval) clearInterval(interval)
+      }
+    }
+    // Poll every 200ms until window.turnstile is available
+    interval = setInterval(renderTurnstile, 200)
+    return () => {
+      if (interval) clearInterval(interval)
     }
   }, [])
 
@@ -474,7 +483,7 @@ export default function DevenCloud3ContactForm({
             />
           </div>
 
-          <div className="cf-turnstile" style={{ marginBottom: '1.5rem' }}></div>
+          <div ref={turnstileRef} className="cf-turnstile" style={{ marginBottom: '1.5rem' }}></div>
 
           <button
             type="submit"
