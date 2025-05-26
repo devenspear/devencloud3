@@ -75,7 +75,7 @@ export default function DevenCloud3ContactForm({
       })
 
       if (response.ok) {
-        const result = await response.json()
+        await response.json()
         setMessage({
           type: 'success',
           text: '🚀 Thank you for reaching out! I\'ll get back to you soon.'
