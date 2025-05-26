@@ -55,7 +55,7 @@ export default function DevenCloud3ContactForm({
   const turnstileRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    let interval: NodeJS.Timeout | null = null
+    let interval: ReturnType<typeof setInterval> | null = null
     function renderTurnstile() {
       if (window.turnstile && turnstileRef.current) {
         const widgetId = window.turnstile.render(turnstileRef.current, {
