@@ -57,7 +57,12 @@ export default function DevenCloud3ContactForm({
   useEffect(() => {
     let interval: ReturnType<typeof setInterval> | null = null
     function renderTurnstile() {
+      console.log('Polling for turnstile:', {
+        turnstile: typeof window.turnstile,
+        ref: !!turnstileRef.current
+      })
       if (window.turnstile && turnstileRef.current) {
+        console.log('Rendering turnstile widget...')
         const widgetId = window.turnstile.render(turnstileRef.current, {
           sitekey: '0x4AAAAAAAIKHgKNWkpW6FPg',
           callback: (token: string) => {
