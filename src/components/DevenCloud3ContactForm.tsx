@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 interface ContactFormProps {
   className?: string
@@ -15,12 +15,20 @@ interface FormData {
   phone: string
   subject: string
   message: string
-  inquiryType: string
 }
 
 interface FormMessage {
   type: 'success' | 'error'
   text: string
+}
+
+declare global {
+  interface Window {
+    turnstile: {
+      render: (container: string | HTMLElement, options: any) => void;
+      reset: (widgetId: string) => void;
+    };
+  }
 }
 
 export default function DevenCloud3ContactForm({ 
@@ -35,11 +43,31 @@ export default function DevenCloud3ContactForm({
     phone: '',
     subject: '',
     message: '',
-    inquiryType: ''
   })
   
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [message, setMessage] = useState<FormMessage | null>(null)
+  const [turnstileToken, setTurnstileToken] = useState<string>('')
+  const [turnstileWidgetId, setTurnstileWidgetId] = useState<string>('')
+
+  useEffect(() => {
+    // Initialize Turnstile when component mounts
+    if (window.turnstile) {
+      const widgetId = window.turnstile.render('.cf-turnstile', {
+        sitekey: '0x4AAAAAAAIKHgKNWkpW6FPg',
+        callback: (token: string) => {
+          setTurnstileToken(token)
+        },
+        'expired-callback': () => {
+          setTurnstileToken('')
+        },
+        'error-callback': () => {
+          setTurnstileToken('')
+        }
+      })
+      setTurnstileWidgetId(widgetId)
+    }
+  }, [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -51,11 +79,20 @@ export default function DevenCloud3ContactForm({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    if (!turnstileToken) {
+      setMessage({
+        type: 'error',
+        text: 'Please complete the security check'
+      })
+      return
+    }
+
     setIsSubmitting(true)
     setMessage(null)
 
     try {
-      const response = await fetch('https://crm.deven.cloud/api/submissions', {
+      const response = await fetch('https://crm.deven.site/api/submissions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -66,11 +103,12 @@ export default function DevenCloud3ContactForm({
           lastName: formData.lastName,
           email: formData.email,
           phone: formData.phone,
-          note: `Subject: ${formData.subject}\nInquiry Type: ${formData.inquiryType}\n\nMessage: ${formData.message}`,
+          subject: formData.subject,
+          note: formData.message,
+          turnstileToken: turnstileToken,
           sourceWebsite: 'devencloud3.vercel.app',
           sourcePage: '/contact',
-          sourceUrl: window.location.href,
-          skipBotCheck: true // Trusted source
+          sourceUrl: window.location.href
         })
       })
 
@@ -81,7 +119,7 @@ export default function DevenCloud3ContactForm({
           text: '🚀 Thank you for reaching out! I\'ll get back to you soon.'
         })
         
-        // Reset form
+        // Reset form and Turnstile
         setFormData({
           firstName: '',
           lastName: '',
@@ -89,8 +127,11 @@ export default function DevenCloud3ContactForm({
           phone: '',
           subject: '',
           message: '',
-          inquiryType: ''
         })
+        if (turnstileWidgetId) {
+          window.turnstile.reset(turnstileWidgetId)
+        }
+        setTurnstileToken('')
         
         onSuccess?.()
       } else {
@@ -121,17 +162,66 @@ export default function DevenCloud3ContactForm({
   ]
 
   return (
-    <div className={`w-full max-w-2xl mx-auto ${className}`}>
-      <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-6 rounded-t-2xl text-white">
-        <h2 className="text-2xl font-bold mb-2">Get In Touch</h2>
-        <p className="text-blue-100">Let's discuss your next project or opportunity</p>
+    <div style={{ 
+      width: '100vw',
+      maxWidth: '100%',
+      margin: '0 auto',
+      padding: '0 1rem',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      boxSizing: 'border-box'
+    }}>
+      <div style={{ textAlign: 'center', marginBottom: '2rem', width: '100%' }}>
+        <h2 style={{ 
+          color: 'white', 
+          fontSize: '1.75rem', 
+          fontWeight: 'bold', 
+          marginBottom: '0.5rem',
+          margin: '0 0 0.5rem 0'
+        }}>
+          Get In Touch
+        </h2>
+        <p style={{ 
+          color: 'rgb(203, 213, 225)', 
+          margin: '0',
+          fontSize: '1rem',
+          whiteSpace: 'nowrap'
+        }}>
+          Let's discuss your next project or opportunity
+        </p>
       </div>
       
-      <div className="bg-white p-6 rounded-b-2xl shadow-xl border border-gray-200">
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
+      <div style={{ 
+        width: '100%', 
+        maxWidth: '500px', 
+        margin: '0 auto',
+        padding: '0',
+        boxSizing: 'border-box'
+      }}>
+        <form onSubmit={handleSubmit} style={{ 
+          display: 'flex', 
+          flexDirection: 'column', 
+          gap: '1.5rem', 
+          width: '100%',
+          margin: '0',
+          padding: '0'
+        }}>
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', 
+            gap: '1.5rem',
+            width: '100%'
+          }}>
+            <div style={{ width: '100%' }}>
+              <label htmlFor="firstName" style={{ 
+                display: 'block', 
+                color: 'rgb(203, 213, 225)', 
+                fontSize: '0.9rem', 
+                fontWeight: '500', 
+                marginBottom: '0.5rem',
+                textAlign: 'left'
+              }}>
                 First Name *
               </label>
               <input
@@ -141,13 +231,41 @@ export default function DevenCloud3ContactForm({
                 value={formData.firstName}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                placeholder="Enter your first name"
+                style={{
+                  width: '100%',
+                  padding: '0.875rem 1rem',
+                  border: '1px solid rgba(59, 130, 246, 0.4)',
+                  borderRadius: '30px',
+                  background: 'rgba(59, 130, 246, 0.1)',
+                  color: 'white',
+                  fontSize: '1rem',
+                  transition: 'all 0.3s ease',
+                  outline: 'none',
+                  boxSizing: 'border-box',
+                  margin: '0'
+                }}
+                onFocus={(e) => {
+                  e.target.style.borderColor = 'rgba(59, 130, 246, 0.7)';
+                  e.target.style.boxShadow = '0 5px 15px rgba(59, 130, 246, 0.2)';
+                  e.target.style.transform = 'translateY(-3px)';
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = 'rgba(59, 130, 246, 0.4)';
+                  e.target.style.boxShadow = 'none';
+                  e.target.style.transform = 'translateY(0)';
+                }}
               />
             </div>
 
-            <div>
-              <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">
+            <div style={{ width: '100%' }}>
+              <label htmlFor="lastName" style={{ 
+                display: 'block', 
+                color: 'rgb(203, 213, 225)', 
+                fontSize: '0.9rem', 
+                fontWeight: '500', 
+                marginBottom: '0.5rem',
+                textAlign: 'left'
+              }}>
                 Last Name *
               </label>
               <input
@@ -157,14 +275,42 @@ export default function DevenCloud3ContactForm({
                 value={formData.lastName}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                placeholder="Enter your last name"
+                style={{
+                  width: '100%',
+                  padding: '0.875rem 1rem',
+                  border: '1px solid rgba(59, 130, 246, 0.4)',
+                  borderRadius: '30px',
+                  background: 'rgba(59, 130, 246, 0.1)',
+                  color: 'white',
+                  fontSize: '1rem',
+                  transition: 'all 0.3s ease',
+                  outline: 'none',
+                  boxSizing: 'border-box',
+                  margin: '0'
+                }}
+                onFocus={(e) => {
+                  e.target.style.borderColor = 'rgba(59, 130, 246, 0.7)';
+                  e.target.style.boxShadow = '0 5px 15px rgba(59, 130, 246, 0.2)';
+                  e.target.style.transform = 'translateY(-3px)';
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = 'rgba(59, 130, 246, 0.4)';
+                  e.target.style.boxShadow = 'none';
+                  e.target.style.transform = 'translateY(0)';
+                }}
               />
             </div>
           </div>
 
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+          <div style={{ width: '100%' }}>
+            <label htmlFor="email" style={{ 
+              display: 'block', 
+              color: 'rgb(203, 213, 225)', 
+              fontSize: '0.9rem', 
+              fontWeight: '500', 
+              marginBottom: '0.5rem',
+              textAlign: 'left'
+            }}>
               Email Address *
             </label>
             <input
@@ -174,13 +320,41 @@ export default function DevenCloud3ContactForm({
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-              placeholder="Enter your email address"
+              style={{
+                width: '100%',
+                padding: '0.875rem 1rem',
+                border: '1px solid rgba(59, 130, 246, 0.4)',
+                borderRadius: '30px',
+                background: 'rgba(59, 130, 246, 0.1)',
+                color: 'white',
+                fontSize: '1rem',
+                transition: 'all 0.3s ease',
+                outline: 'none',
+                boxSizing: 'border-box',
+                margin: '0'
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = 'rgba(59, 130, 246, 0.7)';
+                e.target.style.boxShadow = '0 5px 15px rgba(59, 130, 246, 0.2)';
+                e.target.style.transform = 'translateY(-3px)';
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = 'rgba(59, 130, 246, 0.4)';
+                e.target.style.boxShadow = 'none';
+                e.target.style.transform = 'translateY(0)';
+              }}
             />
           </div>
 
-          <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+          <div style={{ width: '100%' }}>
+            <label htmlFor="phone" style={{ 
+              display: 'block', 
+              color: 'rgb(203, 213, 225)', 
+              fontSize: '0.9rem', 
+              fontWeight: '500', 
+              marginBottom: '0.5rem',
+              textAlign: 'left'
+            }}>
               Phone Number
             </label>
             <input
@@ -189,33 +363,41 @@ export default function DevenCloud3ContactForm({
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-              placeholder="Enter your phone number"
+              style={{
+                width: '100%',
+                padding: '0.875rem 1rem',
+                border: '1px solid rgba(59, 130, 246, 0.4)',
+                borderRadius: '30px',
+                background: 'rgba(59, 130, 246, 0.1)',
+                color: 'white',
+                fontSize: '1rem',
+                transition: 'all 0.3s ease',
+                outline: 'none',
+                boxSizing: 'border-box',
+                margin: '0'
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = 'rgba(59, 130, 246, 0.7)';
+                e.target.style.boxShadow = '0 5px 15px rgba(59, 130, 246, 0.2)';
+                e.target.style.transform = 'translateY(-3px)';
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = 'rgba(59, 130, 246, 0.4)';
+                e.target.style.boxShadow = 'none';
+                e.target.style.transform = 'translateY(0)';
+              }}
             />
           </div>
 
-          <div>
-            <label htmlFor="inquiryType" className="block text-sm font-medium text-gray-700 mb-2">
-              Inquiry Type *
-            </label>
-            <select
-              id="inquiryType"
-              name="inquiryType"
-              value={formData.inquiryType}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-            >
-              {inquiryOptions.map(option => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div>
-            <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
+          <div style={{ width: '100%' }}>
+            <label htmlFor="subject" style={{ 
+              display: 'block', 
+              color: 'rgb(203, 213, 225)', 
+              fontSize: '0.9rem', 
+              fontWeight: '500', 
+              marginBottom: '0.5rem',
+              textAlign: 'left'
+            }}>
               Subject *
             </label>
             <input
@@ -225,13 +407,42 @@ export default function DevenCloud3ContactForm({
               value={formData.subject}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
               placeholder="Brief subject line..."
+              style={{
+                width: '100%',
+                padding: '0.875rem 1rem',
+                border: '1px solid rgba(59, 130, 246, 0.4)',
+                borderRadius: '30px',
+                background: 'rgba(59, 130, 246, 0.1)',
+                color: 'white',
+                fontSize: '1rem',
+                transition: 'all 0.3s ease',
+                outline: 'none',
+                boxSizing: 'border-box',
+                margin: '0'
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = 'rgba(59, 130, 246, 0.7)';
+                e.target.style.boxShadow = '0 5px 15px rgba(59, 130, 246, 0.2)';
+                e.target.style.transform = 'translateY(-3px)';
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = 'rgba(59, 130, 246, 0.4)';
+                e.target.style.boxShadow = 'none';
+                e.target.style.transform = 'translateY(0)';
+              }}
             />
           </div>
 
-          <div>
-            <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+          <div style={{ width: '100%' }}>
+            <label htmlFor="message" style={{ 
+              display: 'block', 
+              color: 'rgb(203, 213, 225)', 
+              fontSize: '0.9rem', 
+              fontWeight: '500', 
+              marginBottom: '0.5rem',
+              textAlign: 'left'
+            }}>
               Message *
             </label>
             <textarea
@@ -241,35 +452,87 @@ export default function DevenCloud3ContactForm({
               onChange={handleChange}
               required
               rows={6}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-vertical"
               placeholder="Tell me about your project, opportunity, or what you'd like to discuss..."
+              style={{
+                width: '100%',
+                padding: '0.875rem 1rem',
+                border: '1px solid rgba(59, 130, 246, 0.4)',
+                borderRadius: '30px',
+                background: 'rgba(59, 130, 246, 0.1)',
+                color: 'white',
+                fontSize: '1rem',
+                transition: 'all 0.3s ease',
+                outline: 'none',
+                resize: 'vertical',
+                minHeight: '120px',
+                fontFamily: 'inherit',
+                boxSizing: 'border-box',
+                margin: '0'
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = 'rgba(59, 130, 246, 0.7)';
+                e.target.style.boxShadow = '0 5px 15px rgba(59, 130, 246, 0.2)';
+                e.target.style.transform = 'translateY(-3px)';
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = 'rgba(59, 130, 246, 0.4)';
+                e.target.style.boxShadow = 'none';
+                e.target.style.transform = 'translateY(0)';
+              }}
             />
           </div>
+
+          <div className="cf-turnstile" style={{ marginBottom: '1.5rem' }}></div>
 
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:from-gray-400 disabled:to-gray-500 text-white font-semibold py-4 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 disabled:transform-none disabled:cursor-not-allowed shadow-lg"
+            className="form-submit-button"
+            onMouseEnter={(e) => {
+              if (!isSubmitting) {
+                e.currentTarget.classList.add('hover');
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (!isSubmitting) {
+                e.currentTarget.classList.remove('hover');
+              }
+            }}
           >
             {isSubmitting ? (
-              <span className="flex items-center justify-center">
-                <svg className="w-5 h-5 mr-3 animate-spin" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+              <>
+                <svg style={{ width: '1.25rem', height: '1.25rem', animation: 'spin 1s linear infinite' }} fill="none" viewBox="0 0 24 24">
+                  <circle style={{ opacity: 0.25 }} cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path style={{ opacity: 0.75 }} fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                 </svg>
                 Sending Message...
-              </span>
+              </>
             ) : (
-              '🚀 Send Message'
+              <>🚀 Send Message</>
             )}
           </button>
 
           {message && (
-            <div className={`p-4 rounded-lg ${
-              message.type === 'success' 
-                ? 'bg-blue-50 text-blue-800 border border-blue-200' 
-                : 'bg-red-50 text-red-800 border border-red-200'
-            }`}>
+            <div 
+              style={{
+                padding: '1rem',
+                borderRadius: '30px',
+                border: message.type === 'success' 
+                  ? '1px solid rgba(34, 197, 94, 0.4)' 
+                  : '1px solid rgba(239, 68, 68, 0.4)',
+                background: message.type === 'success' 
+                  ? 'rgba(34, 197, 94, 0.15)' 
+                  : 'rgba(239, 68, 68, 0.15)',
+                color: message.type === 'success' 
+                  ? 'rgb(134, 239, 172)' 
+                  : 'rgb(252, 165, 165)',
+                marginTop: '1rem',
+                textAlign: 'center',
+                width: '100%',
+                boxSizing: 'border-box',
+                margin: '1rem 0 0 0'
+              }}
+            >
               {message.text}
             </div>
           )}
