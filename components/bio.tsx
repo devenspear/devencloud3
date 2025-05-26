@@ -2,23 +2,18 @@
 
 import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
-import Image from "next/image"
-import { useState, useEffect } from "react"
-
-// Import the image directly
-import bioImage from "../public/images/deven-portrait.png"
+import { useState } from "react"
 
 // Base64 encoded green placeholder silhouette
 const placeholderImageBase64 = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMjAwIDIwMCI+CiAgPHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMyMjIiLz4KICA8cGF0aCBkPSJNMTAwLDUwIGE0MCw0MCAwIDEsMCA0MCw0MCBhNDAsNDAgMCAxLDAgLTQwLC00MCBNODMsMTIwIGg3NiBjMCwzMCAtMTgsMzAgLTMwLDMwIGgtNiBjLTEyLDAgLTMwLDAgLTMwLC0zMCBaIiBmaWxsPSIjOGZmZmFhIiBvcGFjaXR5PSIwLjciLz4KPC9zdmc+";
 
 export default function Bio() {
   const [imageError, setImageError] = useState(false);
-  const [imagePath, setImagePath] = useState(bioImage?.src || "/images/deven-portrait.png");
+  const [imagePath, setImagePath] = useState("/images/deven-portrait.png");
 
   // Alternative paths to try if the primary path fails
   const altPaths = [
     "/deven-portrait.png",
-    "/deven-portrait-direct.png",
     "/images/deven-portrait.png",
     "/placeholder-user.jpg",
     placeholderImageBase64
