@@ -66,7 +66,7 @@ export default function DevenCloud3ContactForm({
         turnstileRef.current.innerHTML = '';
         console.log('Rendering turnstile widget...')
         const widgetId = window.turnstile.render(turnstileRef.current, {
-          sitekey: '0x4AAAAAABei_3tTjQijoAPl',
+          sitekey: '0x4AAAAAAABd88q_Tw0xFedez',
           callback: (token: string) => {
             setTurnstileToken(token)
           },
