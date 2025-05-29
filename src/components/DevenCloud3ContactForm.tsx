@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Turnstile } from '@marsidev/react-turnstile'
 
 interface ContactFormProps {
@@ -20,7 +20,7 @@ interface FormData {
 }
 
 interface FormMessage {
-  type: 'success' | 'error'
+  type: 'success' | 'error' | 'debug'
   text: string
 }
 
@@ -42,6 +42,22 @@ export default function DevenCloud3ContactForm({
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [message, setMessage] = useState<FormMessage | null>(null)
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  const [debugInfo, setDebugInfo] = useState<string[]>([])
+
+  // Debug environment variables on component mount
+  useEffect(() => {
+    const crmApiKey = import.meta.env.VITE_CRM_API_KEY
+    const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY
+    
+    const debug = [
+      `CRM API Key: ${crmApiKey ? `${crmApiKey.substring(0, 10)}...` : 'NOT SET'}`,
+      `Turnstile Site Key: ${turnstileSiteKey ? `${turnstileSiteKey.substring(0, 10)}...` : 'NOT SET'}`,
+      `Environment: ${import.meta.env.MODE || 'unknown'}`,
+    ]
+    
+    setDebugInfo(debug)
+    console.log('🔍 DevenCloud3ContactForm Debug Info:', debug)
+  }, [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -53,10 +69,20 @@ export default function DevenCloud3ContactForm({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    console.log('🚀 Form submission started')
     setIsSubmitting(true)
     setMessage(null)
 
+    const crmApiKey = import.meta.env.VITE_CRM_API_KEY
+    const crmEndpoint = 'https://crm.deven.site/api/submissions'
+
+    console.log('📝 Form Data:', formData)
+    console.log('🔑 API Key:', crmApiKey ? `${crmApiKey.substring(0, 10)}...` : 'NOT SET')
+    console.log('🎯 CRM Endpoint:', crmEndpoint)
+    console.log('🛡️ Turnstile Token:', turnstileToken ? `${turnstileToken.substring(0, 10)}...` : 'NOT SET')
+
     if (!turnstileToken) {
+      console.log('❌ Turnstile token missing')
       setMessage({
         type: 'error',
         text: 'Please complete the human verification check.'
@@ -65,28 +91,47 @@ export default function DevenCloud3ContactForm({
       return
     }
 
+    if (!crmApiKey) {
+      console.log('❌ CRM API key missing')
+      setMessage({
+        type: 'error',
+        text: 'Configuration error: API key not found.'
+      })
+      setIsSubmitting(false)
+      return
+    }
+
     try {
-      const response = await fetch('https://crm.deven.site/api/submissions', {
+      const payload = {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        phone: formData.phone,
+        note: `Subject: ${formData.subject}\nInquiry Type: ${formData.inquiryType}\n\nMessage: ${formData.message}`,
+        sourceWebsite: 'deven.cloud',
+        sourcePage: '/contact',
+        sourceUrl: window.location.href,
+      }
+
+      console.log('📤 Sending payload to CRM:', payload)
+
+      const response = await fetch(crmEndpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-API-Key': import.meta.env.VITE_CRM_API_KEY || 'your-api-key-here',
+          'X-API-Key': crmApiKey,
           'X-Turnstile-Token': turnstileToken
         },
-        body: JSON.stringify({
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          email: formData.email,
-          phone: formData.phone,
-          note: `Subject: ${formData.subject}\nInquiry Type: ${formData.inquiryType}\n\nMessage: ${formData.message}`,
-          sourceWebsite: 'deven.cloud',
-          sourcePage: '/contact',
-          sourceUrl: window.location.href,
-        })
+        body: JSON.stringify(payload)
       })
 
+      console.log('📥 CRM response status:', response.status)
+      console.log('📥 CRM response headers:', Object.fromEntries(response.headers.entries()))
+
       if (response.ok) {
-        await response.json()
+        const responseData = await response.json()
+        console.log('✅ Form submission successful:', responseData)
+        
         setMessage({
           type: 'success',
           text: '🚀 Thank you for reaching out! I\'ll get back to you soon.'
@@ -105,10 +150,20 @@ export default function DevenCloud3ContactForm({
         
         onSuccess?.()
       } else {
-        const error = await response.json()
-        throw new Error(error.error || 'Failed to submit form')
+        const errorText = await response.text()
+        console.log('❌ CRM error response:', errorText)
+        
+        let errorData
+        try {
+          errorData = JSON.parse(errorText)
+        } catch {
+          errorData = { error: errorText }
+        }
+        
+        throw new Error(errorData.error || `HTTP ${response.status}: ${errorText}`)
       }
     } catch (error: any) {
+      console.error('💥 Form submission error:', error)
       const errorMessage = error.message || 'Something went wrong. Please try again.'
       setMessage({
         type: 'error',
@@ -117,6 +172,7 @@ export default function DevenCloud3ContactForm({
       onError?.(errorMessage)
     } finally {
       setIsSubmitting(false)
+      console.log('🏁 Form submission process completed')
     }
   }
 
@@ -139,6 +195,19 @@ export default function DevenCloud3ContactForm({
       </div>
       
       <div className="bg-white p-6 rounded-b-2xl shadow-xl border border-gray-200">
+        {/* Debug Information */}
+        <details className="mb-4 p-3 bg-gray-100 rounded">
+          <summary className="cursor-pointer text-sm font-mono text-gray-600">
+            🔍 Debug Information (click to expand)
+          </summary>
+          <div className="mt-2 text-xs font-mono text-gray-700">
+            {debugInfo.map((info, index) => (
+              <div key={index}>{info}</div>
+            ))}
+            <div>Turnstile Status: {turnstileToken ? '✅ Token received' : '❌ No token'}</div>
+          </div>
+        </details>
+
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
@@ -260,14 +329,24 @@ export default function DevenCloud3ContactForm({
           <div className="my-4 flex justify-center">
             <Turnstile
               siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY || ''}
-              onSuccess={setTurnstileToken}
-              onError={() => {
+              onSuccess={(token) => {
+                console.log('✅ Turnstile success, token received:', token.substring(0, 10) + '...')
+                setTurnstileToken(token)
+                setMessage({ type: 'debug', text: '✅ Human verification completed!' })
+              }}
+              onError={(error) => {
+                console.log('❌ Turnstile error:', error)
                 setMessage({ type: 'error', text: 'Failed to load human verification. Please try refreshing.' })
                 setTurnstileToken(null)
               }}
               onExpire={() => {
+                console.log('⏰ Turnstile expired')
                 setMessage({ type: 'error', text: 'Human verification expired. Please try again.' })
                 setTurnstileToken(null)
+              }}
+              onLoad={() => {
+                console.log('📥 Turnstile loaded successfully')
+                setMessage({ type: 'debug', text: '📥 Human verification loaded. Please complete the challenge.' })
               }}
             />
           </div>
@@ -294,6 +373,8 @@ export default function DevenCloud3ContactForm({
             <div className={`p-4 rounded-lg ${
               message.type === 'success' 
                 ? 'bg-blue-50 text-blue-800 border border-blue-200' 
+                : message.type === 'debug'
+                ? 'bg-yellow-50 text-yellow-800 border border-yellow-200'
                 : 'bg-red-50 text-red-800 border border-red-200'
             }`}>
               {message.text}
