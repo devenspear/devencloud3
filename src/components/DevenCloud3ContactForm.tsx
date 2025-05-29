@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { ReactTurnstile } from '@marsidev/react-turnstile'
 
 interface ContactFormProps {
   className?: string
@@ -40,6 +41,7 @@ export default function DevenCloud3ContactForm({
   
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [message, setMessage] = useState<FormMessage | null>(null)
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -54,12 +56,22 @@ export default function DevenCloud3ContactForm({
     setIsSubmitting(true)
     setMessage(null)
 
+    if (!turnstileToken) {
+      setMessage({
+        type: 'error',
+        text: 'Please complete the human verification check.'
+      })
+      setIsSubmitting(false)
+      return
+    }
+
     try {
-      const response = await fetch('https://crm.deven.cloud/api/submissions', {
+      const response = await fetch('https://crm.deven.site/api/submissions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-API-Key': import.meta.env.VITE_DEVENCLOUD3_CRM_API_KEY || 'your-api-key-here'
+          'X-API-Key': import.meta.env.VITE_CRM_API_KEY || 'your-api-key-here',
+          'X-Turnstile-Token': turnstileToken
         },
         body: JSON.stringify({
           firstName: formData.firstName,
@@ -67,10 +79,9 @@ export default function DevenCloud3ContactForm({
           email: formData.email,
           phone: formData.phone,
           note: `Subject: ${formData.subject}\nInquiry Type: ${formData.inquiryType}\n\nMessage: ${formData.message}`,
-          sourceWebsite: 'devencloud3.vercel.app',
+          sourceWebsite: 'deven.cloud',
           sourcePage: '/contact',
           sourceUrl: window.location.href,
-          skipBotCheck: true // Trusted source
         })
       })
 
@@ -243,6 +254,21 @@ export default function DevenCloud3ContactForm({
               rows={6}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-vertical"
               placeholder="Tell me about your project, opportunity, or what you'd like to discuss..."
+            />
+          </div>
+
+          <div className="my-4 flex justify-center">
+            <ReactTurnstile
+              siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY || ''}
+              onSuccess={setTurnstileToken}
+              onError={() => {
+                setMessage({ type: 'error', text: 'Failed to load human verification. Please try refreshing.' })
+                setTurnstileToken(null)
+              }}
+              onExpire={() => {
+                setMessage({ type: 'error', text: 'Human verification expired. Please try again.' })
+                setTurnstileToken(null)
+              }}
             />
           </div>
 
