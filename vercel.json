@@ -9,7 +9,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' https://challenges.cloudflare.com 'unsafe-eval' 'unsafe-inline'; frame-src https://challenges.cloudflare.com; connect-src 'self' https://challenges.cloudflare.com; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:;"
+          "value": "default-src 'self'; script-src 'self' challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; frame-src challenges.cloudflare.com; connect-src 'self' challenges.cloudflare.com; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:;"
         }
       ]
     }
