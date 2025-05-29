@@ -9,7 +9,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.cloudflare.com challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; frame-src *.cloudflare.com challenges.cloudflare.com; connect-src 'self' *.cloudflare.com challenges.cloudflare.com; img-src 'self' data: *.cloudflare.com; font-src 'self' https://fonts.gstatic.com data:;"
+          "value": "default-src 'self' 'unsafe-inline' 'unsafe-eval' *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; style-src 'self' 'unsafe-inline' *; frame-src *; connect-src *; img-src * data:; font-src * data:;"
         }
       ]
     }
