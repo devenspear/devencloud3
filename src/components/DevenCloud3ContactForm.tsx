@@ -74,7 +74,8 @@ export default function DevenCloud3ContactForm({
     setMessage(null)
 
     const crmApiKey = import.meta.env.VITE_CRM_API_KEY
-    const crmEndpoint = 'https://crm.deven.site/api/submissions'
+    // Temporarily use the same endpoint as futurefast.ai to test CORS
+    const crmEndpoint = 'https://dev-co-crm.vercel.app/api/submissions'
 
     console.log('📝 Form Data:', formData)
     console.log('🔑 API Key:', crmApiKey ? `${crmApiKey.substring(0, 10)}...` : 'NOT SET')
