@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { ReactTurnstile } from '@marsidev/react-turnstile'
+import { Turnstile } from '@marsidev/react-turnstile'
 
 interface ContactFormProps {
   className?: string
@@ -258,7 +258,7 @@ export default function DevenCloud3ContactForm({
           </div>
 
           <div className="my-4 flex justify-center">
-            <ReactTurnstile
+            <Turnstile
               siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY || ''}
               onSuccess={setTurnstileToken}
               onError={() => {
