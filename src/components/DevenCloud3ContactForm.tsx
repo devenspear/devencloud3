@@ -81,7 +81,10 @@ export default function DevenCloud3ContactForm({
     console.log('🎯 CRM Endpoint:', crmEndpoint)
     console.log('🛡️ Turnstile Token:', turnstileToken ? `${turnstileToken.substring(0, 10)}...` : 'NOT SET')
 
-    if (!turnstileToken) {
+    // Temporarily skip Turnstile check for testing
+    const skipTurnstile = true
+    
+    if (!skipTurnstile && !turnstileToken) {
       console.log('❌ Turnstile token missing')
       setMessage({
         type: 'error',
@@ -111,17 +114,25 @@ export default function DevenCloud3ContactForm({
         sourceWebsite: 'deven.cloud',
         sourcePage: '/contact',
         sourceUrl: window.location.href,
+        // Skip Turnstile verification for testing - like futurefast.ai
+        skipBotCheck: skipTurnstile
       }
 
       console.log('📤 Sending payload to CRM:', payload)
 
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+        'X-API-Key': crmApiKey,
+      }
+      
+      // Only add Turnstile token if we have one
+      if (!skipTurnstile && turnstileToken) {
+        headers['X-Turnstile-Token'] = turnstileToken
+      }
+
       const response = await fetch(crmEndpoint, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-API-Key': crmApiKey,
-          'X-Turnstile-Token': turnstileToken
-        },
+        headers,
         body: JSON.stringify(payload)
       })
 
@@ -327,28 +338,38 @@ export default function DevenCloud3ContactForm({
           </div>
 
           <div className="my-4 flex justify-center">
-            <Turnstile
-              siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY || ''}
-              onSuccess={(token) => {
-                console.log('✅ Turnstile success, token received:', token.substring(0, 10) + '...')
-                setTurnstileToken(token)
-                setMessage({ type: 'debug', text: '✅ Human verification completed!' })
-              }}
-              onError={(error) => {
-                console.log('❌ Turnstile error:', error)
-                setMessage({ type: 'error', text: 'Failed to load human verification. Please try refreshing.' })
-                setTurnstileToken(null)
-              }}
-              onExpire={() => {
-                console.log('⏰ Turnstile expired')
-                setMessage({ type: 'error', text: 'Human verification expired. Please try again.' })
-                setTurnstileToken(null)
-              }}
-              onLoad={() => {
-                console.log('📥 Turnstile loaded successfully')
-                setMessage({ type: 'debug', text: '📥 Human verification loaded. Please complete the challenge.' })
-              }}
-            />
+            {/* Temporarily hide Turnstile for testing */}
+            <div className="text-center p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+              <p className="text-yellow-800 text-sm">
+                🧪 <strong>Debug Mode:</strong> Turnstile temporarily disabled for testing (like futurefast.ai)
+              </p>
+            </div>
+            
+            {/* Keep Turnstile component but hidden for now */}
+            <div style={{ display: 'none' }}>
+              <Turnstile
+                siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY || ''}
+                onSuccess={(token) => {
+                  console.log('✅ Turnstile success, token received:', token.substring(0, 10) + '...')
+                  setTurnstileToken(token)
+                  setMessage({ type: 'debug', text: '✅ Human verification completed!' })
+                }}
+                onError={(error) => {
+                  console.log('❌ Turnstile error:', error)
+                  setMessage({ type: 'error', text: 'Failed to load human verification. Please try refreshing.' })
+                  setTurnstileToken(null)
+                }}
+                onExpire={() => {
+                  console.log('⏰ Turnstile expired')
+                  setMessage({ type: 'error', text: 'Human verification expired. Please try again.' })
+                  setTurnstileToken(null)
+                }}
+                onLoad={() => {
+                  console.log('📥 Turnstile loaded successfully')
+                  setMessage({ type: 'debug', text: '📥 Human verification loaded. Please complete the challenge.' })
+                }}
+              />
+            </div>
           </div>
 
           <button
