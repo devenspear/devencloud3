@@ -1,3 +1,23 @@
+/*
+ * CONTACT FORM COMPONENT - CURRENTLY DISABLED
+ * 
+ * This component was developed to integrate with DevCo CRM and Cloudflare Turnstile
+ * but is currently disabled due to unresolved CORS (Cross-Origin Resource Sharing) issues.
+ * 
+ * Issue: crm.deven.site blocks requests from www.deven.cloud
+ * Error: "Origin https://www.deven.cloud is not allowed by Access-Control-Allow-Origin"
+ * 
+ * See README.md Addendum for:
+ * - Complete implementation details
+ * - All attempted solutions
+ * - Recommended next steps to resolve CORS
+ * 
+ * Last working state: Form bypasses Turnstile and validates correctly,
+ * but fails at CRM submission due to CORS policy.
+ * 
+ * To re-enable: Fix CORS configuration on crm.deven.site or implement proxy solution
+ */
+
 'use client'
 
 import React, { useState, useEffect } from 'react'

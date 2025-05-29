@@ -1,7 +1,9 @@
 import { FaLinkedin, FaTwitter, FaYoutube, FaGlobe, FaRss } from 'react-icons/fa';
 import './App.css';
 import AnimatedBackground from './components/AnimatedBackground';
-import DevenCloud3ContactForm from './components/DevenCloud3ContactForm';
+// Contact form temporarily disabled due to unresolved CORS issues with CRM endpoint
+// See README.md Addendum for full technical details and implementation
+// import DevenCloud3ContactForm from './components/DevenCloud3ContactForm';
 
 // Obfuscate URLs to avoid ad blocker detection
 const buildUrl = (parts: string[]) => parts.join('');
@@ -75,9 +77,13 @@ function App() {
         ))}
       </div>
       
+      {/* Contact form temporarily disabled due to unresolved CORS issues */}
+      {/* See README.md Addendum for complete implementation details */}
+      {/* 
       <div className="contact-section">
         <DevenCloud3ContactForm />
       </div>
+      */}
       
       <footer>
         &copy; {new Date().getFullYear()} Deven Spear. All rights reserved.
