@@ -22,6 +22,7 @@
   background-color: rgba(0, 0, 0, 0.8);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -112,108 +113,21 @@ p {
   display: inline-flex;
 }
 
+/* Contact Section Styles */
+.contact-section {
+  width: 100%;
+  max-width: 600px;
+  margin: 2rem auto 0;
+  padding: 0 1rem;
+}
+
 footer {
   margin-top: 2rem;
   font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.5);
 }
 
-/* Contact Form Styles */
-.contact-form-container {
-  width: 100%;
-  max-width: 350px; /* Match the max-width of external-resources */
-  margin: 1.5rem auto 0;
-  padding: 1.5rem;
-  background-color: rgba(100, 100, 255, 0.05);
-  border-radius: 30px; /* Match the border-radius of resource-link */
-  border: 1px solid rgba(100, 100, 255, 0.3);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-}
-
-.form-title {
-  font-size: 1.5rem;
-  color: white;
-  margin-bottom: 1.5rem;
-  text-align: center;
-}
-
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-}
-
-.form-group label {
-  margin-bottom: 0.5rem;
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 0.9rem;
-}
-
-.form-input {
-  padding: 0.75rem;
-  border-radius: 15px; /* More rounded to match the design */
-  border: 1px solid rgba(100, 100, 255, 0.3);
-  background-color: rgba(0, 0, 0, 0.3);
-  color: white;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  width: 100%; /* Ensure inputs take full width */
-}
-
-.form-input:focus {
-  outline: none;
-  border-color: rgba(100, 100, 255, 0.6);
-  box-shadow: 0 0 0 2px rgba(100, 100, 255, 0.2);
-}
-
-.turnstile-container {
-  margin: 0.5rem 0;
-  display: flex;
-  justify-content: center;
-}
-
-.submit-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  background-color: rgba(100, 100, 255, 0.1); /* Match resource-link */
-  color: white;
-  border: 1px solid rgba(100, 100, 255, 0.3); /* Match resource-link */
-  border-radius: 30px; /* Match resource-link */
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 1rem;
-  width: 100%; /* Take full width */
-}
-
-.submit-button:hover:not(:disabled) {
-  background-color: rgba(100, 100, 255, 0.2); /* Match resource-link hover */
-  transform: translateY(-3px); /* Match resource-link hover */
-  box-shadow: 0 5px 15px rgba(100, 100, 255, 0.2); /* Match resource-link hover */
-}
-
-.submit-button:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-.spinner {
-  animation: spin 1s linear infinite;
-  width: 1.25rem;
-  height: 1.25rem;
-  margin-right: 0.5rem;
-}
-
+/* Animation for loading spinner */
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -223,47 +137,59 @@ footer {
   }
 }
 
-.error-message {
-  background-color: rgba(255, 100, 100, 0.1);
-  border: 1px solid rgba(255, 100, 100, 0.3);
-  padding: 1rem;
-  border-radius: 6px;
-  margin-bottom: 1.5rem;
-  text-align: left;
+/* Animation for pulsating button */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
 }
 
-.error-message h4 {
-  color: rgba(255, 100, 100, 0.9);
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-}
+/* REMOVED ALL CONTACT FORM CSS CLASSES TO PREVENT CONFLICTS */
 
-.error-message p {
-  color: rgba(255, 255, 255, 0.8);
+/* Form Submit Button Styles - Mirrored from .resource-link */
+.form-submit-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1rem;
+  background-color: rgba(100, 100, 255, 0.1);
+  border-radius: 30px;
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(100, 100, 255, 0.3);
+  width: 100%;
+  position: relative;
+  z-index: 15;
+  cursor: pointer;
+  font-size: 1rem; /* Base font size, can be adjusted in media query */
+  font-weight: 600;
+  gap: 0.5rem;
+  box-sizing: border-box;
   margin: 0;
 }
 
-.success-message {
-  background-color: rgba(100, 255, 100, 0.1);
-  border: 1px solid rgba(100, 255, 100, 0.3);
-  padding: 1.5rem;
-  border-radius: 6px;
-  text-align: center;
+.form-submit-button:hover,
+.form-submit-button.hover { /* Includes JS-toggled class for compatibility if needed */
+  transform: translateY(-3px);
+  background-color: rgba(100, 100, 255, 0.2);
+  box-shadow: 0 5px 15px rgba(100, 100, 255, 0.2);
 }
 
-.success-message h4 {
-  color: rgba(100, 255, 100, 0.9);
-  margin-top: 0;
-  margin-bottom: 1rem;
+.form-submit-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
-.success-message p {
-  color: rgba(255, 255, 255, 0.8);
-  margin: 0;
-}
-
-.send-icon {
-  margin-right: 0.5rem;
+.form-submit-button:disabled:hover {
+  transform: none;
+  background-color: rgba(100, 100, 255, 0.1); /* Keep original background when disabled */
+  box-shadow: none;
 }
 
 /* Responsive adjustments */
@@ -297,21 +223,39 @@ footer {
     justify-content: center;
   }
   
-  .contact-form-container {
-    padding: 1.25rem;
-    margin-top: 1.5rem;
-    width: 90%; /* Match the width of external-resources on mobile */
-    max-width: none;
+  /* Contact form mobile styles - ensure equal padding */
+  .contact-section {
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem 1rem;
   }
   
-  .form-input,
-  .submit-button {
-    font-size: 0.95rem;
-    padding: 0.7rem;
+  h1 {
+    font-size: 1.8rem;
   }
   
-  .form-title {
-    font-size: 1.3rem;
-    margin-bottom: 1rem;
+  .profile-img {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .external-resources {
+    gap: 0.5rem;
+    max-width: 300px;
+  }
+  
+  .resource-link,
+  .form-submit-button { /* Apply same responsive styles to both */
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
+  }
+  
+  /* Ensure contact form has equal padding on very small screens */
+  .contact-section {
+    padding: 0 0.75rem;
   }
 }

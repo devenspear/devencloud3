@@ -25,7 +25,7 @@ interface FormMessage {
 }
 
 export default function DevenCloud3ContactForm({ 
-  className = '', 
+  className = '',
   onSuccess,
   onError 
 }: ContactFormProps) {
@@ -92,7 +92,6 @@ export default function DevenCloud3ContactForm({
           text: '🚀 Thank you for reaching out! I\'ll get back to you soon.'
         })
         
-        // Reset form
         setFormData({
           firstName: '',
           lastName: '',
@@ -102,6 +101,7 @@ export default function DevenCloud3ContactForm({
           message: '',
           inquiryType: ''
         })
+        setTurnstileToken(null)
         
         onSuccess?.()
       } else {
