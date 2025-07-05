@@ -1,24 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { FaEnvelope } from 'react-icons/fa';
 
 interface EmailObfuscatorProps {
   className?: string;
-  showIcon?: boolean;
   linkText?: string;
 }
 
 const EmailObfuscator: React.FC<EmailObfuscatorProps> = ({ 
   className = '', 
-  showIcon = true,
-  linkText = 'Email'
+  linkText = 'here'
 }) => {
   const [email, setEmail] = useState<string>('');
   const [mailtoLink, setMailtoLink] = useState<string>('#');
   
   useEffect(() => {
     // Decode the email parts to prevent static crawling
-    const user = decodeURIComponent('d%65%76%65%6E');
-    const domain = decodeURIComponent('d%65%76%65%6E%73%70%65%61%72%2E%63%6F%6D');
+    const user = decodeURIComponent('D%65%76%65%6E');
+    const domain = decodeURIComponent('D%65%76%65%6E%2E%65%6D%61%69%6C');
     const completeEmail = `${user}@${domain}`;
     
     setEmail(completeEmail);
@@ -40,7 +37,7 @@ const EmailObfuscator: React.FC<EmailObfuscatorProps> = ({
       target="_blank"
       aria-label="Send an email"
     >
-      {showIcon && <FaEnvelope className="icon" />} <span>{linkText}</span>
+      {linkText}
     </a>
   );
 };

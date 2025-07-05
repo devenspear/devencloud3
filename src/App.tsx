@@ -1,6 +1,7 @@
 import { FaLinkedin, FaTwitter, FaYoutube, FaGlobe, FaRss } from 'react-icons/fa';
 import './App.css';
 import AnimatedBackground from './components/AnimatedBackground';
+import EmailObfuscator from './components/EmailObfuscator';
 // Contact form temporarily disabled due to unresolved CORS issues with CRM endpoint
 // See README.md Addendum for full technical details and implementation
 // import DevenCloud3ContactForm from './components/DevenCloud3ContactForm';
@@ -36,8 +37,8 @@ const links = [
     icon: <FaGlobe /> 
   },
   {
-    href: buildUrl(['https://', 'etherscan.io/name-lookup-search?id=cryptospear.eth']),
-    label: 'cryptospear.eth', 
+    href: buildUrl(['https://', 'cryptodeven.com']),
+    label: 'cryptodeven.com', 
     icon: <FaGlobe />
   },
   { 
@@ -84,6 +85,17 @@ function App() {
         <DevenCloud3ContactForm />
       </div>
       */}
+      
+      {/* Email Contact Link */}
+      <div className="email-contact" style={{ textAlign: 'center', marginTop: '2rem', marginBottom: '1rem' }}>
+        <p style={{ fontSize: '0.9rem', color: '#888' }}>
+          Feel free to contact me via email{' '}
+          <EmailObfuscator 
+            className="email-link"
+            linkText="here"
+          />
+        </p>
+      </div>
       
       <footer>
         &copy; {new Date().getFullYear()} Deven Spear. All rights reserved.

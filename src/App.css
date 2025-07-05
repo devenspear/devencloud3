@@ -259,3 +259,27 @@ footer {
     padding: 0 0.75rem;
   }
 }
+
+/* Email Contact Styles */
+.email-contact {
+  z-index: 15;
+  position: relative;
+}
+
+.email-contact p {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.email-link {
+  color: rgba(100, 100, 255, 0.8);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid transparent;
+}
+
+.email-link:hover {
+  color: rgba(100, 100, 255, 1);
+  border-bottom-color: rgba(100, 100, 255, 0.5);
+}
