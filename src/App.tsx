@@ -5,6 +5,7 @@ import EmailObfuscator from './components/EmailObfuscator';
 // Contact form temporarily disabled due to unresolved CORS issues with CRM endpoint
 // See README.md Addendum for full technical details and implementation
 // import DevenCloud3ContactForm from './components/DevenCloud3ContactForm';
+// Updated for Vercel deployment trigger
 
 // Obfuscate URLs to avoid ad blocker detection
 const buildUrl = (parts: string[]) => parts.join('');
