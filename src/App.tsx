@@ -1,6 +1,7 @@
 import { FaLinkedin, FaTwitter, FaYoutube, FaGlobe, FaRss } from 'react-icons/fa';
 import './App.css';
 import AnimatedBackground from './components/AnimatedBackground';
+import FloatingQuestions from './components/FloatingQuestions';
 import EmailObfuscator from './components/EmailObfuscator';
 // Contact form temporarily disabled due to unresolved CORS issues with CRM endpoint
 // See README.md Addendum for full technical details and implementation
@@ -26,12 +27,11 @@ const links = [
     label: 'YouTube', 
     icon: <FaYoutube /> 
   },
-  // OA3.io link temporarily hidden
-  // { 
-  //   href: buildUrl(['https://', 'oa3.io']), 
-  //   label: 'OA3.io', 
-  //   icon: <FaGlobe /> 
-  // },
+  { 
+    href: buildUrl(['https://', 'overabove.com']), 
+    label: 'Overabove', 
+    icon: <FaGlobe /> 
+  },
   { 
     href: buildUrl(['https://', 'futurefast.ai']), 
     label: 'FutureFast.ai', 
@@ -51,9 +51,11 @@ const links = [
 
 function App() {
   return (
-    <div className="container">
+    <>
       <AnimatedBackground />
-      <img 
+      <FloatingQuestions />
+      <div className="container">
+        <img 
         src="/DevenHeadshot_Blue.jpg" 
         alt="Deven Spear" 
         className="profile-img"
@@ -101,7 +103,8 @@ function App() {
       <footer>
         &copy; {new Date().getFullYear()} Deven Spear. All rights reserved.
       </footer>
-    </div>
+      </div>
+    </>
   );
 }
 

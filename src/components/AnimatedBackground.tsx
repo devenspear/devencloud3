@@ -31,8 +31,8 @@ const AnimatedBackground: React.FC = () => {
     // Create points
     for (let i = 0; i < pointCount; i++) {
       points.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
         z: Math.random() * 100,
         vx: (Math.random() - 0.5) * 0.3,
         vy: (Math.random() - 0.5) * 0.3,
@@ -43,54 +43,39 @@ const AnimatedBackground: React.FC = () => {
     // Animation loop
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
       // Draw grid
       ctx.strokeStyle = 'rgba(150, 150, 255, 0.15)';
       ctx.lineWidth = lineWidth;
-      
-      // Horizontal lines
       for (let y = 0; y < canvas.height; y += gridSize) {
         ctx.beginPath();
         ctx.moveTo(0, y);
         ctx.lineTo(canvas.width, y);
         ctx.stroke();
       }
-      
-      // Vertical lines
       for (let x = 0; x < canvas.width; x += gridSize) {
         ctx.beginPath();
         ctx.moveTo(x, 0);
         ctx.lineTo(x, canvas.height);
         ctx.stroke();
       }
-
       // Update and draw points
       for (let i = 0; i < points.length; i++) {
         const point = points[i];
-        
-        // Update position
         point.x += point.vx;
         point.y += point.vy;
         point.z += point.vz;
-        
-        // Boundary check
         if (point.x < 0 || point.x > canvas.width) point.vx *= -1;
         if (point.y < 0 || point.y > canvas.height) point.vy *= -1;
         if (point.z < 0 || point.z > 100) point.vz *= -1;
-        
-        // Draw point
         ctx.fillStyle = `rgba(150, 200, 255, ${0.3 + (point.z / 100) * 0.4})`;
         ctx.beginPath();
         ctx.arc(point.x, point.y, pointSize + (point.z / 100) * 1.5, 0, Math.PI * 2);
         ctx.fill();
-        
-        // Connect points
         for (let j = i + 1; j < points.length; j++) {
           const otherPoint = points[j];
           const dx = point.x - otherPoint.x;
           const dy = point.y - otherPoint.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
-          
           if (distance < connectionDistance) {
             const opacity = (1 - distance / connectionDistance) * 0.3;
             ctx.strokeStyle = `rgba(100, 100, 255, ${opacity})`;
@@ -101,12 +86,9 @@ const AnimatedBackground: React.FC = () => {
           }
         }
       }
-      
       requestAnimationFrame(animate);
     };
-    
     animate();
-    
     // Cleanup
     return () => {
       window.removeEventListener('resize', resizeCanvas);
@@ -118,6 +100,7 @@ const AnimatedBackground: React.FC = () => {
       ref={canvasRef} 
       className="animated-background"
       aria-hidden="true"
+      style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 1 }}
     />
   );
 };
