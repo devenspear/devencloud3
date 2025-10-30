@@ -17,20 +17,21 @@ const links = [
     label: 'LinkedIn', 
     icon: <FaLinkedin /> 
   },
-  { 
-    href: buildUrl(['https://', 'twitter.com', '/devenspear']), 
-    label: 'Twitter/X', 
-    icon: <FaTwitter /> 
+  {
+    href: buildUrl(['https://', 'twitter.com', '/devenspear']),
+    label: 'Twitter/X',
+    icon: <FaTwitter />
   },
-  { 
-    href: buildUrl(['https://', 'www.youtube.com', '/@deven_spear/videos']), 
-    label: 'YouTube', 
-    icon: <FaYoutube /> 
-  },
-  { 
-    href: buildUrl(['https://', 'overabove.com']), 
-    label: 'Overabove', 
-    icon: <FaGlobe /> 
+  // YouTube button temporarily commented out - can be restored in the future
+  // {
+  //   href: buildUrl(['https://', 'www.youtube.com', '/@deven_spear/videos']),
+  //   label: 'YouTube',
+  //   icon: <FaYoutube />
+  // },
+  {
+    href: buildUrl(['https://', 'overabove.com']),
+    label: 'Overabove',
+    icon: <FaGlobe />
   },
   { 
     href: buildUrl(['https://', 'futurefast.ai']), 
