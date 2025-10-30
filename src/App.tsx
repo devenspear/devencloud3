@@ -1,4 +1,5 @@
-import { FaLinkedin, FaTwitter, FaYoutube, FaGlobe, FaRss } from 'react-icons/fa';
+import { FaLinkedin, FaTwitter, FaGlobe, FaRss } from 'react-icons/fa';
+// FaYoutube removed - uncomment when restoring YouTube button
 import './App.css';
 import AnimatedBackground from './components/AnimatedBackground';
 import FloatingQuestions from './components/FloatingQuestions';
