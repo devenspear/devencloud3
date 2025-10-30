@@ -42,10 +42,15 @@ const links = [
     label: 'cryptodeven.com', 
     icon: <FaGlobe />
   },
-  { 
-    href: buildUrl(['https://', 'www.deven.blog']), 
-    label: 'www.deven.blog', 
-    icon: <FaRss /> 
+  {
+    href: buildUrl(['https://', 'www.deven.blog']),
+    label: 'www.deven.blog',
+    icon: <FaRss />
+  },
+  {
+    href: buildUrl(['https://', 'www.linkedin.com', '/newsletters/disruption-weekly-7120892654304776192/']),
+    label: 'Disruption Weekly',
+    icon: <FaRss />
   },
 ];
 
