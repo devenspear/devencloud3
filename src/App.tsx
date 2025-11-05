@@ -34,10 +34,15 @@ const links = [
     label: 'Overabove',
     icon: <FaGlobe />
   },
-  { 
-    href: buildUrl(['https://', 'futurefast.ai']), 
-    label: 'FutureFast.ai', 
-    icon: <FaGlobe /> 
+  {
+    href: buildUrl(['https://', 'workshop.deven.network']),
+    label: 'Deven Workshop',
+    icon: <FaGlobe />
+  },
+  {
+    href: buildUrl(['https://', 'futurefast.ai']),
+    label: 'FutureFast.ai',
+    icon: <FaGlobe />
   },
   {
     href: buildUrl(['https://', 'cryptodeven.com']),
