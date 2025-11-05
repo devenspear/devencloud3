@@ -13,10 +13,10 @@ import EmailObfuscator from './components/EmailObfuscator';
 const buildUrl = (parts: string[]) => parts.join('');
 
 const links = [
-  { 
-    href: buildUrl(['https://', 'www.linkedin.com', '/in/devenspear/']), 
-    label: 'LinkedIn', 
-    icon: <FaLinkedin /> 
+  {
+    href: buildUrl(['https://', 'www.linkedin.com', '/in/devenspear/']),
+    label: 'LinkedIn',
+    icon: <FaLinkedin />
   },
   {
     href: buildUrl(['https://', 'twitter.com', '/devenspear']),
@@ -35,19 +35,19 @@ const links = [
     icon: <FaGlobe />
   },
   {
-    href: buildUrl(['https://', 'workshop.deven.network']),
-    label: 'Deven Workshop',
-    icon: <FaGlobe />
-  },
-  {
     href: buildUrl(['https://', 'futurefast.ai']),
     label: 'FutureFast.ai',
     icon: <FaGlobe />
   },
   {
     href: buildUrl(['https://', 'cryptodeven.com']),
-    label: 'cryptodeven.com', 
+    label: 'cryptodeven.com',
     icon: <FaGlobe />
+  },
+  {
+    href: buildUrl(['https://', 'www.linkedin.com', '/newsletters/disruption-weekly-7120892654304776192/']),
+    label: 'Disruption Weekly',
+    icon: <FaRss />
   },
   {
     href: buildUrl(['https://', 'www.deven.blog']),
@@ -55,9 +55,9 @@ const links = [
     icon: <FaRss />
   },
   {
-    href: buildUrl(['https://', 'www.linkedin.com', '/newsletters/disruption-weekly-7120892654304776192/']),
-    label: 'Disruption Weekly',
-    icon: <FaRss />
+    href: buildUrl(['https://', 'workshop.deven.network']),
+    label: 'Deven Workshop',
+    icon: <FaGlobe />
   },
 ];
 
