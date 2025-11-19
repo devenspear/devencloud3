@@ -59,6 +59,11 @@ const links = [
     label: 'Deven Workshop',
     icon: <FaGlobe />
   },
+  {
+    href: buildUrl(['https://', 'nlight10.me']),
+    label: 'Wisdom Hub',
+    icon: <FaGlobe />
+  },
 ];
 
 function App() {
@@ -67,54 +72,54 @@ function App() {
       <AnimatedBackground />
       <FloatingQuestions />
       <div className="container">
-        <img 
-        src="/DevenHeadshot_Blue.jpg" 
-        alt="Deven Spear" 
-        className="profile-img"
-      />
-      <h1>Deven Spear</h1>
-      <h2>Polymath Entrepreneur & Chief Innovation Officer</h2>
-      <p>
-        30+ years, 6 startups, real estate, software, tech. Excels at spotting opportunities and creating solutions. Thought leader in innovative problem-solving across physical and digital realms.
-      </p>
-      <div className="external-resources">
-        {links.map(link => (
-          <a 
-            key={link.href} 
-            href={link.href} 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            aria-label={link.label} 
-            className="resource-link"
-            data-type="external"
-          >
-            <span className="resource-icon">{link.icon}</span> <span className="resource-label">{link.label}</span>
-          </a>
-        ))}
-      </div>
-      
-      {/* Contact form temporarily disabled due to unresolved CORS issues */}
-      {/* See README.md Addendum for complete implementation details */}
-      {/* 
+        <img
+          src="/DevenHeadshot_Blue.jpg"
+          alt="Deven Spear"
+          className="profile-img"
+        />
+        <h1>Deven Spear</h1>
+        <h2>Polymath Entrepreneur & Chief Innovation Officer</h2>
+        <p>
+          30+ years, 6 startups, real estate, software, tech. Excels at spotting opportunities and creating solutions. Thought leader in innovative problem-solving across physical and digital realms.
+        </p>
+        <div className="external-resources">
+          {links.map(link => (
+            <a
+              key={link.href}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={link.label}
+              className="resource-link"
+              data-type="external"
+            >
+              <span className="resource-icon">{link.icon}</span> <span className="resource-label">{link.label}</span>
+            </a>
+          ))}
+        </div>
+
+        {/* Contact form temporarily disabled due to unresolved CORS issues */}
+        {/* See README.md Addendum for complete implementation details */}
+        {/* 
       <div className="contact-section">
         <DevenCloud3ContactForm />
       </div>
       */}
-      
-      {/* Email Contact Link */}
-      <div className="email-contact" style={{ textAlign: 'center', marginTop: '2rem', marginBottom: '1rem' }}>
-        <p style={{ fontSize: '0.9rem', color: '#888' }}>
-          Feel free to contact me via email{' '}
-          <EmailObfuscator 
-            className="email-link"
-            linkText="here"
-          />
-        </p>
-      </div>
-      
-      <footer>
-        &copy; {new Date().getFullYear()} Deven Spear. All rights reserved.
-      </footer>
+
+        {/* Email Contact Link */}
+        <div className="email-contact" style={{ textAlign: 'center', marginTop: '2rem', marginBottom: '1rem' }}>
+          <p style={{ fontSize: '0.9rem', color: '#888' }}>
+            Feel free to contact me via email{' '}
+            <EmailObfuscator
+              className="email-link"
+              linkText="here"
+            />
+          </p>
+        </div>
+
+        <footer>
+          &copy; {new Date().getFullYear()} Deven Spear. All rights reserved.
+        </footer>
       </div>
     </>
   );
