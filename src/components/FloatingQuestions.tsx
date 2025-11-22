@@ -66,8 +66,8 @@ const V_BUFFER = 30;
 const H_SLOTS = 3;
 const MIN_BUBBLE_HEIGHT = 60; // Increased from 48px
 const MAX_BUBBLE_HEIGHT = 80;
-const MIN_FONT_SIZE = 11;
-const MAX_FONT_SIZE = 14;
+const MIN_FONT_SIZE = 13;
+const MAX_FONT_SIZE = 16;
 
 function getSlotCenters(panelSize: number, bubbleSize: number, slots: number, buffer: number) {
   const slotSize = (panelSize - 2 * buffer - bubbleSize) / (slots - 1);

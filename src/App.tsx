@@ -78,9 +78,12 @@ function App() {
           className="profile-img"
         />
         <h1>Deven Spear</h1>
-        <h2>Polymath Entrepreneur & Chief Innovation Officer</h2>
+        <h2>Chief Innovation Officer · Polymath Entrepreneur · Futurist</h2>
         <p>
-          30+ years, 6 startups, real estate, software, tech. Excels at spotting opportunities and creating solutions. Thought leader in innovative problem-solving across physical and digital realms.
+          30+ years, 6 startups, real estate, marketing, software, and tech.
+        </p>
+        <p>
+          From the first wave of the web to crypto and AI, I've been building at the edge of what's next. I spot patterns early, turn them into real-world solutions, and help others navigate disruptive change across physical and digital realms.
         </p>
         <div className="external-resources">
           {links.map(link => (
