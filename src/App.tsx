@@ -64,6 +64,11 @@ const links = [
     label: 'Wisdom Hub',
     icon: <FaGlobe />
   },
+  {
+    href: buildUrl(['https://', 'convergence2030.com']),
+    label: 'Convergence 2030',
+    icon: <FaGlobe />
+  },
 ];
 
 function App() {
