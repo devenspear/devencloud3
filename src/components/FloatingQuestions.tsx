@@ -35,12 +35,12 @@ const questions: Question[] = [
   {
     id: 'ai-longevity',
     text: 'Interested in how AI and gene therapy are rewriting aging and longevity?',
-    url: 'https://www.deven.blog/p/rewriting-aging-how-ai-and-gene-therapy',
+    url: 'https://www.linkedin.com/newsletters/disruption-weekly-7120892654304776192/',
   },
   {
     id: 'wellness-realestate',
     text: 'What are the emerging opportunities in wellness real estate and why is it booming?',
-    url: 'https://www.linkedin.com/in/devenspear',
+    url: 'https://nlight10.me',
   },
   {
     id: 'daily-thoughts',
@@ -55,7 +55,7 @@ const questions: Question[] = [
   {
     id: 'connect-learn',
     text: 'Ready to connect or learn more about my passion for education and decentralized change?',
-    url: 'mailto:Deven@Deven.email',
+    url: 'https://workshop.deven.network',
   },
 ];
 
