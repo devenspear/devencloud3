@@ -24,7 +24,7 @@ const questions: Question[] = [
   },
   {
     id: 'overabove-innovation',
-    text: 'How does Overabove drive innovation in marketing and tech?',
+    text: 'Need strategic brand positioning and brand DNA development for your business?',
     url: 'https://overabove.com/',
   },
   {
@@ -33,13 +33,13 @@ const questions: Question[] = [
     url: 'https://www.cryptodeven.com/',
   },
   {
-    id: 'ai-longevity',
-    text: 'Interested in how AI and gene therapy are rewriting aging and longevity?',
+    id: 'disruption-weekly',
+    text: 'Want weekly insights on disruptive technologies and innovation trends?',
     url: 'https://www.linkedin.com/newsletters/disruption-weekly-7120892654304776192/',
   },
   {
-    id: 'wellness-realestate',
-    text: 'What are the emerging opportunities in wellness real estate and why is it booming?',
+    id: 'wisdom-hub',
+    text: 'Looking for curated wisdom and philosophical insights from 20 years of reading?',
     url: 'https://nlight10.me',
   },
   {
@@ -48,13 +48,13 @@ const questions: Question[] = [
     url: 'https://twitter.com/DevenSpear',
   },
   {
-    id: 'crypto-ai-videos',
-    text: 'How can I explore videos on the unstoppable future of crypto and AI?',
+    id: 'executive-intelligence',
+    text: 'Need executive intelligence on AI, Web3, and exponential technology disruption?',
     url: 'https://www.futurefast.ai/',
   },
   {
-    id: 'connect-learn',
-    text: 'Ready to connect or learn more about my passion for education and decentralized change?',
+    id: 'ai-workshop',
+    text: 'Curious how I rapidly prototype innovative solutions using AI-powered development?',
     url: 'https://workshop.deven.network',
   },
 ];
