@@ -32,11 +32,12 @@ const questions: Question[] = [
     text: 'How do I get started with crypto and blockchain as a beginner?',
     url: 'https://www.cryptodeven.com/',
   },
-  {
-    id: 'disruption-weekly',
-    text: 'Want weekly insights on disruptive technologies and innovation trends?',
-    url: 'https://www.linkedin.com/newsletters/disruption-weekly-7120892654304776192/',
-  },
+  // Disruption Weekly - temporarily hidden, can be restored in the future
+  // {
+  //   id: 'disruption-weekly',
+  //   text: 'Want weekly insights on disruptive technologies and innovation trends?',
+  //   url: 'https://www.linkedin.com/newsletters/disruption-weekly-7120892654304776192/',
+  // },
   {
     id: 'wisdom-hub',
     text: 'Looking for curated wisdom and philosophical insights from 20 years of reading?',
@@ -52,11 +53,12 @@ const questions: Question[] = [
     text: 'Need executive intelligence on AI, Web3, and exponential technology disruption?',
     url: 'https://www.futurefast.ai/',
   },
-  {
-    id: 'ai-workshop',
-    text: 'Curious how I rapidly prototype innovative solutions using AI-powered development?',
-    url: 'https://workshop.deven.network',
-  },
+  // Deven Workshop - temporarily hidden, can be restored in the future
+  // {
+  //   id: 'ai-workshop',
+  //   text: 'Curious how I rapidly prototype innovative solutions using AI-powered development?',
+  //   url: 'https://workshop.deven.network',
+  // },
 ];
 
 const PANEL_WIDTH = 350;

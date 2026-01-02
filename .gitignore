@@ -30,3 +30,6 @@ dist-ssr
 *.sln
 *.sw?
 .vercel
+
+# pnpm lock file (local only - Vercel uses npm)
+pnpm-lock.yaml

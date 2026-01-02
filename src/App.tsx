@@ -44,31 +44,34 @@ const links = [
     label: 'cryptodeven.com',
     icon: <FaGlobe />
   },
-  {
-    href: buildUrl(['https://', 'www.linkedin.com', '/newsletters/disruption-weekly-7120892654304776192/']),
-    label: 'Disruption Weekly',
-    icon: <FaRss />
-  },
+  // Disruption Weekly - temporarily hidden, can be restored in the future
+  // {
+  //   href: buildUrl(['https://', 'www.linkedin.com', '/newsletters/disruption-weekly-7120892654304776192/']),
+  //   label: 'Disruption Weekly',
+  //   icon: <FaRss />
+  // },
   {
     href: buildUrl(['https://', 'www.deven.blog']),
     label: 'www.deven.blog',
     icon: <FaRss />
   },
-  {
-    href: buildUrl(['https://', 'workshop.deven.network']),
-    label: 'Deven Workshop',
-    icon: <FaGlobe />
-  },
+  // Deven Workshop - temporarily hidden, can be restored in the future
+  // {
+  //   href: buildUrl(['https://', 'workshop.deven.network']),
+  //   label: 'Deven Workshop',
+  //   icon: <FaGlobe />
+  // },
   {
     href: buildUrl(['https://', 'nlight10.me']),
     label: 'Wisdom Hub',
     icon: <FaGlobe />
   },
-  {
-    href: buildUrl(['https://', 'convergence2030.com']),
-    label: 'Convergence 2030',
-    icon: <FaGlobe />
-  },
+  // Convergence 2030 - temporarily hidden, can be restored in the future
+  // {
+  //   href: buildUrl(['https://', 'convergence2030.com']),
+  //   label: 'Convergence 2030',
+  //   icon: <FaGlobe />
+  // },
 ];
 
 function App() {
